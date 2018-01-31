@@ -1,0 +1,5 @@
+E:\zPoolMiner-repo\MessageBoxManager\bin\Debug\MessageBoxManager.dll
+E:\zPoolMiner-repo\MessageBoxManager\bin\Debug\MessageBoxManager.pdb
+E:\zPoolMiner-repo\MessageBoxManager\obj\Debug\MessageBoxManager.csproj.CoreCompileInputs.cache
+E:\zPoolMiner-repo\MessageBoxManager\obj\Debug\MessageBoxManager.dll
+E:\zPoolMiner-repo\MessageBoxManager\obj\Debug\MessageBoxManager.pdb

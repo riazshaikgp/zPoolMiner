@@ -1,0 +1,12 @@
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\bin\Debug\MyDownloader.Extension.dll.config
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\bin\Debug\MyDownloader.Extension.dll
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\bin\Debug\MyDownloader.Extension.pdb
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\bin\Debug\MyDownloader.Core.dll
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\bin\Debug\MyDownloader.Core.pdb
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\bin\Debug\MyDownloader.Core.dll.config
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\obj\Debug\MyDownloader.Extension.csprojResolveAssemblyReference.cache
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\obj\Debug\MyDownloader.Extension.Protocols.UI.Proxy.resources
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\obj\Debug\MyDownloader.Extension.csproj.GenerateResource.Cache
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\obj\Debug\MyDownloader.Extension.csproj.CoreCompileInputs.cache
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\obj\Debug\MyDownloader.Extension.dll
+E:\zPoolMiner-repo\3rdparty\DownloadManager\MyDownloader.Extension\obj\Debug\MyDownloader.Extension.pdb
