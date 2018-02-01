@@ -30,6 +30,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
             this.buttonStartMining = new System.Windows.Forms.Button();
             this.textBoxBTCAddress = new System.Windows.Forms.TextBox();
             this.labelServiceLocation = new System.Windows.Forms.Label();
@@ -47,7 +48,6 @@
             this.toolStripStatusLabelBalanceDollarValue = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel10 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.linkLabelCheckStats = new System.Windows.Forms.LinkLabel();
             this.labelWorkerName = new System.Windows.Forms.Label();
             this.textBoxWorkerName = new System.Windows.Forms.TextBox();
             this.buttonStopMining = new System.Windows.Forms.Button();
@@ -66,25 +66,28 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.deviceStats = new zPoolMiner.Forms.Components.DeviceStats();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.deviceStats1 = new zPoolMiner.Forms.Components.DeviceStats();
             this.devicesListViewEnableControl1 = new zPoolMiner.Forms.Components.DevicesListViewEnableControl();
             this.statusStrip1.SuspendLayout();
             this.flowLayoutPanelRates.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStartMining
             // 
-            this.buttonStartMining.Location = new System.Drawing.Point(275, 3);
+            this.buttonStartMining.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonStartMining.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.buttonStartMining.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonStartMining.Location = new System.Drawing.Point(0, 0);
             this.buttonStartMining.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStartMining.Name = "buttonStartMining";
-            this.buttonStartMining.Size = new System.Drawing.Size(95, 43);
+            this.buttonStartMining.Size = new System.Drawing.Size(98, 63);
             this.buttonStartMining.TabIndex = 6;
             this.buttonStartMining.Text = "&Start";
             this.buttonStartMining.UseVisualStyleBackColor = true;
@@ -94,15 +97,15 @@
             // 
             this.textBoxBTCAddress.Location = new System.Drawing.Point(108, 4);
             this.textBoxBTCAddress.Name = "textBoxBTCAddress";
-            this.textBoxBTCAddress.Size = new System.Drawing.Size(447, 21);
+            this.textBoxBTCAddress.Size = new System.Drawing.Size(589, 21);
             this.textBoxBTCAddress.TabIndex = 1;
             this.textBoxBTCAddress.Leave += new System.EventHandler(this.TextBoxCheckBoxMain_Leave);
             // 
             // labelServiceLocation
             // 
             this.labelServiceLocation.AutoSize = true;
-            this.labelServiceLocation.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.labelServiceLocation.Location = new System.Drawing.Point(337, 36);
+            this.labelServiceLocation.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelServiceLocation.Location = new System.Drawing.Point(479, 36);
             this.labelServiceLocation.Name = "labelServiceLocation";
             this.labelServiceLocation.Size = new System.Drawing.Size(91, 16);
             this.labelServiceLocation.TabIndex = 99;
@@ -120,7 +123,7 @@
             "The Blocks Factory - unused",
             "Future Pool",
             "Future Pool"});
-            this.comboBoxLocation.Location = new System.Drawing.Point(434, 31);
+            this.comboBoxLocation.Location = new System.Drawing.Point(576, 31);
             this.comboBoxLocation.Name = "comboBoxLocation";
             this.comboBoxLocation.Size = new System.Drawing.Size(121, 24);
             this.comboBoxLocation.TabIndex = 0;
@@ -129,7 +132,7 @@
             // labelBitcoinAddress
             // 
             this.labelBitcoinAddress.AutoSize = true;
-            this.labelBitcoinAddress.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.labelBitcoinAddress.ForeColor = System.Drawing.SystemColors.Control;
             this.labelBitcoinAddress.Location = new System.Drawing.Point(16, 7);
             this.labelBitcoinAddress.Name = "labelBitcoinAddress";
             this.labelBitcoinAddress.Size = new System.Drawing.Size(86, 16);
@@ -152,9 +155,9 @@
             this.toolStripStatusLabelBalanceDollarValue,
             this.toolStripStatusLabel10,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 585);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 464);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(584, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(707, 22);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -243,22 +246,10 @@
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Visible = false;
             // 
-            // linkLabelCheckStats
-            // 
-            this.linkLabelCheckStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabelCheckStats.AutoSize = true;
-            this.linkLabelCheckStats.Location = new System.Drawing.Point(3, 0);
-            this.linkLabelCheckStats.Name = "linkLabelCheckStats";
-            this.linkLabelCheckStats.Size = new System.Drawing.Size(119, 16);
-            this.linkLabelCheckStats.TabIndex = 9;
-            this.linkLabelCheckStats.TabStop = true;
-            this.linkLabelCheckStats.Text = "Check my stats online!";
-            this.linkLabelCheckStats.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelCheckStats_LinkClicked);
-            // 
             // labelWorkerName
             // 
             this.labelWorkerName.AutoSize = true;
-            this.labelWorkerName.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.labelWorkerName.ForeColor = System.Drawing.SystemColors.Control;
             this.labelWorkerName.Location = new System.Drawing.Point(16, 36);
             this.labelWorkerName.Name = "labelWorkerName";
             this.labelWorkerName.Size = new System.Drawing.Size(78, 16);
@@ -269,18 +260,20 @@
             // 
             this.textBoxWorkerName.Location = new System.Drawing.Point(108, 33);
             this.textBoxWorkerName.Name = "textBoxWorkerName";
-            this.textBoxWorkerName.Size = new System.Drawing.Size(223, 21);
+            this.textBoxWorkerName.Size = new System.Drawing.Size(365, 21);
             this.textBoxWorkerName.TabIndex = 2;
             this.textBoxWorkerName.Leave += new System.EventHandler(this.TextBoxCheckBoxMain_Leave);
             // 
             // buttonStopMining
             // 
-            this.buttonStopMining.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStopMining.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonStopMining.Enabled = false;
-            this.buttonStopMining.Location = new System.Drawing.Point(381, 3);
+            this.buttonStopMining.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.buttonStopMining.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonStopMining.Location = new System.Drawing.Point(98, 0);
             this.buttonStopMining.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonStopMining.Name = "buttonStopMining";
-            this.buttonStopMining.Size = new System.Drawing.Size(93, 43);
+            this.buttonStopMining.Size = new System.Drawing.Size(98, 63);
             this.buttonStopMining.TabIndex = 7;
             this.buttonStopMining.Text = "St&op";
             this.buttonStopMining.UseVisualStyleBackColor = true;
@@ -288,11 +281,14 @@
             // 
             // buttonBenchmark
             // 
-            this.buttonBenchmark.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBenchmark.Location = new System.Drawing.Point(166, 3);
+            this.buttonBenchmark.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonBenchmark.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.buttonBenchmark.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBenchmark.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBenchmark.Location = new System.Drawing.Point(408, 0);
             this.buttonBenchmark.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.buttonBenchmark.Name = "buttonBenchmark";
-            this.buttonBenchmark.Size = new System.Drawing.Size(102, 43);
+            this.buttonBenchmark.Size = new System.Drawing.Size(98, 63);
             this.buttonBenchmark.TabIndex = 4;
             this.buttonBenchmark.Text = "&Benchmark";
             this.buttonBenchmark.UseVisualStyleBackColor = true;
@@ -300,11 +296,13 @@
             // 
             // buttonSettings
             // 
-            this.buttonSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSettings.Location = new System.Drawing.Point(480, 3);
+            this.buttonSettings.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSettings.Location = new System.Drawing.Point(604, 0);
             this.buttonSettings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonSettings.Name = "buttonSettings";
-            this.buttonSettings.Size = new System.Drawing.Size(93, 43);
+            this.buttonSettings.Size = new System.Drawing.Size(98, 63);
             this.buttonSettings.TabIndex = 5;
             this.buttonSettings.Text = "S&ettings";
             this.buttonSettings.UseVisualStyleBackColor = true;
@@ -314,12 +312,13 @@
             // 
             this.buttonLogo.BackColor = System.Drawing.Color.White;
             this.buttonLogo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonLogo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonLogo.FlatAppearance.BorderSize = 0;
             this.buttonLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLogo.Image = global::zPoolMiner.Properties.Resources.NHM_logo_xsmall_light;
-            this.buttonLogo.Location = new System.Drawing.Point(6, 9);
+            this.buttonLogo.Location = new System.Drawing.Point(0, 0);
             this.buttonLogo.Name = "buttonLogo";
-            this.buttonLogo.Size = new System.Drawing.Size(149, 52);
+            this.buttonLogo.Size = new System.Drawing.Size(162, 67);
             this.buttonLogo.TabIndex = 11;
             this.buttonLogo.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.buttonLogo.UseMnemonic = false;
@@ -365,7 +364,7 @@
             this.flowLayoutPanelRates.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanelRates.Location = new System.Drawing.Point(3, 17);
             this.flowLayoutPanelRates.Name = "flowLayoutPanelRates";
-            this.flowLayoutPanelRates.Size = new System.Drawing.Size(559, 32);
+            this.flowLayoutPanelRates.Size = new System.Drawing.Size(564, 32);
             this.flowLayoutPanelRates.TabIndex = 107;
             this.flowLayoutPanelRates.WrapContents = false;
             // 
@@ -378,13 +377,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.label_NotProfitable);
             this.groupBox1.Controls.Add(this.flowLayoutPanelRates);
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.groupBox1.Location = new System.Drawing.Point(1, 402);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Location = new System.Drawing.Point(1, 395);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(583, 69);
+            this.groupBox1.Size = new System.Drawing.Size(571, 69);
             this.groupBox1.TabIndex = 108;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Group/Device Rates:";
@@ -402,15 +403,17 @@
             // 
             // buttonHelp
             // 
-            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(334, 51);
+            this.buttonHelp.BackColor = System.Drawing.Color.White;
+            this.buttonHelp.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.buttonHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHelp.Location = new System.Drawing.Point(506, 0);
             this.buttonHelp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(41, 26);
+            this.buttonHelp.Size = new System.Drawing.Size(98, 63);
             this.buttonHelp.TabIndex = 8;
-            this.buttonHelp.Text = "&Help";
-            this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Visible = false;
+            this.buttonHelp.Text = "&Online Stats";
+            this.buttonHelp.UseVisualStyleBackColor = false;
             this.buttonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
             // linkLabelNewVersion
@@ -424,10 +427,9 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.panel6);
-            this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.buttonBenchmark);
             this.panel1.Controls.Add(this.buttonHelp);
             this.panel1.Controls.Add(this.buttonStopMining);
@@ -435,30 +437,21 @@
             this.panel1.Controls.Add(this.buttonStartMining);
             this.panel1.Location = new System.Drawing.Point(1, 70);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(583, 86);
+            this.panel1.Size = new System.Drawing.Size(706, 67);
             this.panel1.TabIndex = 111;
             // 
             // panel6
             // 
-            this.panel6.BackColor = System.Drawing.SystemColors.Window;
+            this.panel6.BackColor = System.Drawing.Color.White;
             this.panel6.Controls.Add(this.buttonLogo);
-            this.panel6.Location = new System.Drawing.Point(-2, -2);
+            this.panel6.Location = new System.Drawing.Point(198, -2);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(162, 67);
             this.panel6.TabIndex = 114;
             // 
-            // panel4
-            // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.BackColor = System.Drawing.SystemColors.Window;
-            this.panel4.Controls.Add(this.linkLabelCheckStats);
-            this.panel4.Location = new System.Drawing.Point(171, 51);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(152, 19);
-            this.panel4.TabIndex = 113;
-            // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.labelBitcoinAddress);
             this.panel3.Controls.Add(this.textBoxBTCAddress);
@@ -468,27 +461,39 @@
             this.panel3.Controls.Add(this.labelServiceLocation);
             this.panel3.Location = new System.Drawing.Point(0, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(584, 62);
+            this.panel3.Size = new System.Drawing.Size(707, 62);
             this.panel3.TabIndex = 112;
             // 
-            // deviceStats
+            // panel5
             // 
-            this.deviceStats.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.panel5.Controls.Add(this.deviceStats1);
+            this.panel5.Controls.Add(this.devicesListViewEnableControl1);
+            this.panel5.Location = new System.Drawing.Point(1, 137);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(706, 252);
+            this.panel5.TabIndex = 114;
+            // 
+            // deviceStats1
+            // 
+            this.deviceStats1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.deviceStats.BenchmarkCalculation = null;
-            this.deviceStats.FirstColumnText = "Device Stats";
-            this.deviceStats.IsInBenchmark = false;
-            this.deviceStats.IsMining = false;
-            this.deviceStats.Location = new System.Drawing.Point(277, 159);
-            this.deviceStats.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.deviceStats.Name = "deviceStats";
-            this.deviceStats.SaveToGeneralConfig = false;
-            this.deviceStats.Size = new System.Drawing.Size(307, 230);
-            this.deviceStats.TabIndex = 113;
+            this.deviceStats1.BenchmarkCalculation = null;
+            this.deviceStats1.FirstColumnText = "Device Stats";
+            this.deviceStats1.IsInBenchmark = false;
+            this.deviceStats1.IsMining = false;
+            this.deviceStats1.Location = new System.Drawing.Point(327, 4);
+            this.deviceStats1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.deviceStats1.Name = "deviceStats1";
+            this.deviceStats1.SaveToGeneralConfig = false;
+            this.deviceStats1.Size = new System.Drawing.Size(374, 244);
+            this.deviceStats1.TabIndex = 110;
             // 
             // devicesListViewEnableControl1
             // 
-            this.devicesListViewEnableControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.devicesListViewEnableControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.devicesListViewEnableControl1.AutoSize = true;
             this.devicesListViewEnableControl1.BenchmarkCalculation = null;
@@ -496,21 +501,20 @@
             this.devicesListViewEnableControl1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.devicesListViewEnableControl1.IsInBenchmark = false;
             this.devicesListViewEnableControl1.IsMining = false;
-            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(1, 159);
+            this.devicesListViewEnableControl1.Location = new System.Drawing.Point(4, 3);
             this.devicesListViewEnableControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.devicesListViewEnableControl1.Name = "devicesListViewEnableControl1";
             this.devicesListViewEnableControl1.SaveToGeneralConfig = false;
-            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(271, 230);
+            this.devicesListViewEnableControl1.Size = new System.Drawing.Size(319, 245);
             this.devicesListViewEnableControl1.TabIndex = 109;
             // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(584, 607);
-            this.Controls.Add(this.deviceStats);
-            this.Controls.Add(this.devicesListViewEnableControl1);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.ClientSize = new System.Drawing.Size(707, 486);
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.linkLabelNewVersion);
@@ -520,6 +524,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Enabled = false;
             this.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(600, 483);
             this.Name = "Form_Main";
@@ -535,10 +540,10 @@
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -563,11 +568,6 @@
         /// Defines the statusStrip1
         /// </summary>
         private System.Windows.Forms.StatusStrip statusStrip1;
-
-        /// <summary>
-        /// Defines the linkLabelCheckStats
-        /// </summary>
-        private System.Windows.Forms.LinkLabel linkLabelCheckStats;
 
         /// <summary>
         /// Defines the labelWorkerName
@@ -730,14 +730,11 @@
         private System.Windows.Forms.Panel panel3;
 
         /// <summary>
-        /// Defines the panel4
-        /// </summary>
-        private System.Windows.Forms.Panel panel4;
-
-        /// <summary>
         /// Defines the panel6
         /// </summary>
         private System.Windows.Forms.Panel panel6;
         private Forms.Components.DeviceStats deviceStats;
+        private System.Windows.Forms.Panel panel5;
+        private Forms.Components.DeviceStats deviceStats1;
     }
 }

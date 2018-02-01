@@ -1,5 +1,8 @@
 ﻿namespace zPoolMiner.Forms
 {
+    /// <summary>
+    /// Defines the <see cref="Form_Settings" />
+    /// </summary>
     partial class Form_Settings
     {
         /// <summary>
@@ -11,21 +14,23 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Settings));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControlGeneral = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
@@ -226,11 +231,12 @@
             // 
             // tabPageGeneral
             // 
-            this.tabPageGeneral.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageGeneral.BackColor = System.Drawing.Color.White;
             this.tabPageGeneral.Controls.Add(this.groupBox_Misc);
             this.tabPageGeneral.Controls.Add(this.groupBox_Logging);
             this.tabPageGeneral.Controls.Add(this.groupBox_Main);
             this.tabPageGeneral.Controls.Add(this.groupBox_Localization);
+            this.tabPageGeneral.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabPageGeneral.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPageGeneral.Name = "tabPageGeneral";
@@ -1157,9 +1163,10 @@
             // 
             // tabPageAdvanced
             // 
-            this.tabPageAdvanced.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageAdvanced.BackColor = System.Drawing.Color.White;
             this.tabPageAdvanced.Controls.Add(this.groupBoxBenchmarkTimeLimits);
             this.tabPageAdvanced.Controls.Add(this.groupBox_Miners);
+            this.tabPageAdvanced.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabPageAdvanced.Location = new System.Drawing.Point(4, 22);
             this.tabPageAdvanced.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
@@ -1177,7 +1184,7 @@
             this.groupBoxBenchmarkTimeLimits.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBoxBenchmarkTimeLimits.Name = "groupBoxBenchmarkTimeLimits";
             this.groupBoxBenchmarkTimeLimits.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBoxBenchmarkTimeLimits.Size = new System.Drawing.Size(389, 146);
+            this.groupBoxBenchmarkTimeLimits.Size = new System.Drawing.Size(389, 309);
             this.groupBoxBenchmarkTimeLimits.TabIndex = 388;
             this.groupBoxBenchmarkTimeLimits.TabStop = false;
             this.groupBoxBenchmarkTimeLimits.Text = "Benchmark Time Limits:";
@@ -1188,7 +1195,7 @@
             this.benchmarkLimitControlNVIDIA.Location = new System.Drawing.Point(10, 17);
             this.benchmarkLimitControlNVIDIA.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.benchmarkLimitControlNVIDIA.Name = "benchmarkLimitControlNVIDIA";
-            this.benchmarkLimitControlNVIDIA.Size = new System.Drawing.Size(178, 121);
+            this.benchmarkLimitControlNVIDIA.Size = new System.Drawing.Size(375, 121);
             this.benchmarkLimitControlNVIDIA.TabIndex = 4;
             this.benchmarkLimitControlNVIDIA.TimeLimits = null;
             // 
@@ -1206,10 +1213,10 @@
             // benchmarkLimitControlAMD
             // 
             this.benchmarkLimitControlAMD.GroupName = "AMD";
-            this.benchmarkLimitControlAMD.Location = new System.Drawing.Point(200, 17);
+            this.benchmarkLimitControlAMD.Location = new System.Drawing.Point(10, 146);
             this.benchmarkLimitControlAMD.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.benchmarkLimitControlAMD.Name = "benchmarkLimitControlAMD";
-            this.benchmarkLimitControlAMD.Size = new System.Drawing.Size(178, 121);
+            this.benchmarkLimitControlAMD.Size = new System.Drawing.Size(374, 121);
             this.benchmarkLimitControlAMD.TabIndex = 5;
             this.benchmarkLimitControlAMD.TimeLimits = null;
             // 
@@ -1438,7 +1445,6 @@
             this.label_CPU0_ForceCPUExtension.TabIndex = 382;
             this.label_CPU0_ForceCPUExtension.Text = "ForceCPUExtension:";
             this.label_CPU0_ForceCPUExtension.Visible = false;
-            this.label_CPU0_ForceCPUExtension.Click += new System.EventHandler(this.label_CPU0_ForceCPUExtension_Click);
             // 
             // label_MinIdleSeconds
             // 
@@ -1469,7 +1475,6 @@
             this.label_SwitchMinSecondsDynamic.Size = new System.Drawing.Size(142, 13);
             this.label_SwitchMinSecondsDynamic.TabIndex = 378;
             this.label_SwitchMinSecondsDynamic.Text = "SwitchMinSecondsDynamic:";
-            this.label_SwitchMinSecondsDynamic.Click += new System.EventHandler(this.label_SwitchMinSecondsDynamic_Click);
             // 
             // label_MinerAPIQueryInterval
             // 
@@ -1480,7 +1485,6 @@
             this.label_MinerAPIQueryInterval.Size = new System.Drawing.Size(116, 13);
             this.label_MinerAPIQueryInterval.TabIndex = 376;
             this.label_MinerAPIQueryInterval.Text = "MinerAPIQueryInterval:";
-            this.label_MinerAPIQueryInterval.Click += new System.EventHandler(this.label_MinerAPIQueryInterval_Click);
             // 
             // label_MinerRestartDelayMS
             // 
@@ -1611,7 +1615,7 @@
             // 
             // tabPageDevicesAlgos
             // 
-            this.tabPageDevicesAlgos.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageDevicesAlgos.BackColor = System.Drawing.Color.White;
             this.tabPageDevicesAlgos.Controls.Add(this.groupBoxAlgorithmSettings);
             this.tabPageDevicesAlgos.Controls.Add(this.devicesListViewEnableControl1);
             this.tabPageDevicesAlgos.Controls.Add(this.algorithmSettingsControl1);
@@ -1625,13 +1629,12 @@
             // 
             // groupBoxAlgorithmSettings
             // 
-            this.groupBoxAlgorithmSettings.BackColor = System.Drawing.SystemColors.Window;
             this.groupBoxAlgorithmSettings.Controls.Add(this.algorithmsListView1);
-            this.groupBoxAlgorithmSettings.Location = new System.Drawing.Point(6, 178);
+            this.groupBoxAlgorithmSettings.Location = new System.Drawing.Point(6, 201);
             this.groupBoxAlgorithmSettings.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBoxAlgorithmSettings.Name = "groupBoxAlgorithmSettings";
             this.groupBoxAlgorithmSettings.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBoxAlgorithmSettings.Size = new System.Drawing.Size(598, 230);
+            this.groupBoxAlgorithmSettings.Size = new System.Drawing.Size(598, 207);
             this.groupBoxAlgorithmSettings.TabIndex = 395;
             this.groupBoxAlgorithmSettings.TabStop = false;
             this.groupBoxAlgorithmSettings.Text = "Algorithm settings for selected device:";
@@ -1644,7 +1647,7 @@
             this.algorithmsListView1.Location = new System.Drawing.Point(6, 15);
             this.algorithmsListView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.algorithmsListView1.Name = "algorithmsListView1";
-            this.algorithmsListView1.Size = new System.Drawing.Size(586, 191);
+            this.algorithmsListView1.Size = new System.Drawing.Size(586, 184);
             this.algorithmsListView1.TabIndex = 2;
             // 
             // devicesListViewEnableControl1
@@ -1665,9 +1668,8 @@
             this.algorithmSettingsControl1.Location = new System.Drawing.Point(366, 0);
             this.algorithmSettingsControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.algorithmSettingsControl1.Name = "algorithmSettingsControl1";
-            this.algorithmSettingsControl1.Size = new System.Drawing.Size(238, 192);
+            this.algorithmSettingsControl1.Size = new System.Drawing.Size(238, 193);
             this.algorithmSettingsControl1.TabIndex = 396;
-            this.algorithmSettingsControl1.Load += new System.EventHandler(this.algorithmSettingsControl1_Load);
             // 
             // buttonSaveClose
             // 
@@ -1709,13 +1711,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.ClientSize = new System.Drawing.Size(648, 494);
             this.Controls.Add(this.buttonDefaults);
             this.Controls.Add(this.buttonSaveClose);
             this.Controls.Add(this.tabControlGeneral);
             this.Controls.Add(this.buttonCloseNoSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -1784,132 +1787,629 @@
 
         }
 
-        #endregion
-
+        /// <summary>
+        /// Defines the buttonSaveClose
+        /// </summary>
         private System.Windows.Forms.Button buttonSaveClose;
+
+        /// <summary>
+        /// Defines the buttonDefaults
+        /// </summary>
         private System.Windows.Forms.Button buttonDefaults;
+
+        /// <summary>
+        /// Defines the buttonCloseNoSave
+        /// </summary>
         private System.Windows.Forms.Button buttonCloseNoSave;
+
+        /// <summary>
+        /// Defines the tabControlGeneral
+        /// </summary>
         private System.Windows.Forms.TabControl tabControlGeneral;
+
+        /// <summary>
+        /// Defines the tabPageGeneral
+        /// </summary>
         private System.Windows.Forms.TabPage tabPageGeneral;
+
+        /// <summary>
+        /// Defines the label_displayCurrency
+        /// </summary>
         private System.Windows.Forms.Label label_displayCurrency;
+
+        /// <summary>
+        /// Defines the currencyConverterCombobox
+        /// </summary>
         private System.Windows.Forms.ComboBox currencyConverterCombobox;
+
+        /// <summary>
+        /// Defines the textBox_LogMaxFileSize
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_LogMaxFileSize;
+
+        /// <summary>
+        /// Defines the textBox_WorkerName
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_WorkerName;
+
+        /// <summary>
+        /// Defines the textBox_BitcoinAddress
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_BitcoinAddress;
+
+        /// <summary>
+        /// Defines the checkBox_LogToFile
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_LogToFile;
+
+        /// <summary>
+        /// Defines the label_Language
+        /// </summary>
         private System.Windows.Forms.Label label_Language;
+
+        /// <summary>
+        /// Defines the comboBox_Language
+        /// </summary>
         private System.Windows.Forms.ComboBox comboBox_Language;
+
+        /// <summary>
+        /// Defines the label_LogMaxFileSize
+        /// </summary>
         private System.Windows.Forms.Label label_LogMaxFileSize;
+
+        /// <summary>
+        /// Defines the comboBox_ServiceLocation
+        /// </summary>
         private System.Windows.Forms.ComboBox comboBox_ServiceLocation;
+
+        /// <summary>
+        /// Defines the label_ServiceLocation
+        /// </summary>
         private System.Windows.Forms.Label label_ServiceLocation;
+
+        /// <summary>
+        /// Defines the label_WorkerName
+        /// </summary>
         private System.Windows.Forms.Label label_WorkerName;
+
+        /// <summary>
+        /// Defines the label_BitcoinAddress
+        /// </summary>
         private System.Windows.Forms.Label label_BitcoinAddress;
+
+        /// <summary>
+        /// Defines the checkBox_DebugConsole
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_DebugConsole;
+
+        /// <summary>
+        /// Defines the tabPageDevicesAlgos
+        /// </summary>
         private System.Windows.Forms.TabPage tabPageDevicesAlgos;
+
+        /// <summary>
+        /// Defines the toolTip1
+        /// </summary>
         private System.Windows.Forms.ToolTip toolTip1;
+
+        /// <summary>
+        /// Defines the groupBox_Main
+        /// </summary>
         private System.Windows.Forms.GroupBox groupBox_Main;
+
+        /// <summary>
+        /// Defines the groupBox_Localization
+        /// </summary>
         private System.Windows.Forms.GroupBox groupBox_Localization;
+
+        /// <summary>
+        /// Defines the groupBox_Logging
+        /// </summary>
         private System.Windows.Forms.GroupBox groupBox_Logging;
+
+        /// <summary>
+        /// Defines the textBox_MinProfit
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_MinProfit;
+
+        /// <summary>
+        /// Defines the label_MinProfit
+        /// </summary>
         private System.Windows.Forms.Label label_MinProfit;
+
+        /// <summary>
+        /// Defines the tabPageAdvanced
+        /// </summary>
         private System.Windows.Forms.TabPage tabPageAdvanced;
+
+        /// <summary>
+        /// Defines the groupBox_Miners
+        /// </summary>
         private System.Windows.Forms.GroupBox groupBox_Miners;
+
+        /// <summary>
+        /// Defines the label_MinIdleSeconds
+        /// </summary>
         private System.Windows.Forms.Label label_MinIdleSeconds;
+
+        /// <summary>
+        /// Defines the label_SwitchMinSecondsFixed
+        /// </summary>
         private System.Windows.Forms.Label label_SwitchMinSecondsFixed;
+
+        /// <summary>
+        /// Defines the label_SwitchMinSecondsDynamic
+        /// </summary>
         private System.Windows.Forms.Label label_SwitchMinSecondsDynamic;
+
+        /// <summary>
+        /// Defines the label_MinerAPIQueryInterval
+        /// </summary>
         private System.Windows.Forms.Label label_MinerAPIQueryInterval;
+
+        /// <summary>
+        /// Defines the label_MinerRestartDelayMS
+        /// </summary>
         private System.Windows.Forms.Label label_MinerRestartDelayMS;
+
+        /// <summary>
+        /// Defines the textBox_SwitchMinSecondsAMD
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_SwitchMinSecondsAMD;
+
+        /// <summary>
+        /// Defines the label_APIBindPortStart
+        /// </summary>
         private System.Windows.Forms.Label label_APIBindPortStart;
+
+        /// <summary>
+        /// Defines the textBox_ethminerDefaultBlockHeight
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_ethminerDefaultBlockHeight;
+
+        /// <summary>
+        /// Defines the label_ethminerDefaultBlockHeight
+        /// </summary>
         private System.Windows.Forms.Label label_ethminerDefaultBlockHeight;
+
+        /// <summary>
+        /// Defines the textBox_APIBindPortStart
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_APIBindPortStart;
+
+        /// <summary>
+        /// Defines the label_SwitchMinSecondsAMD
+        /// </summary>
         private System.Windows.Forms.Label label_SwitchMinSecondsAMD;
+
+        /// <summary>
+        /// Defines the textBox_MinIdleSeconds
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_MinIdleSeconds;
+
+        /// <summary>
+        /// Defines the textBox_SwitchMinSecondsFixed
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_SwitchMinSecondsFixed;
+
+        /// <summary>
+        /// Defines the textBox_SwitchMinSecondsDynamic
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_SwitchMinSecondsDynamic;
+
+        /// <summary>
+        /// Defines the textBox_MinerRestartDelayMS
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_MinerRestartDelayMS;
+
+        /// <summary>
+        /// Defines the textBox_MinerAPIQueryInterval
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_MinerAPIQueryInterval;
+
+        /// <summary>
+        /// Defines the groupBoxBenchmarkTimeLimits
+        /// </summary>
         private System.Windows.Forms.GroupBox groupBoxBenchmarkTimeLimits;
+
+        /// <summary>
+        /// Defines the groupBox_Misc
+        /// </summary>
         private System.Windows.Forms.GroupBox groupBox_Misc;
+
+        /// <summary>
+        /// Defines the checkBox_HideMiningWindows
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_HideMiningWindows;
+
+        /// <summary>
+        /// Defines the checkBox_MinimizeToTray
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_MinimizeToTray;
+
+        /// <summary>
+        /// Defines the checkBox_DisableDetectionNVIDIA
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_DisableDetectionNVIDIA;
+
+        /// <summary>
+        /// Defines the checkBox_DisableDetectionAMD
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_DisableDetectionAMD;
+
+        /// <summary>
+        /// Defines the checkBox_NVIDIAP0State
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_NVIDIAP0State;
+
+        /// <summary>
+        /// Defines the checkBox_AutoScaleBTCValues
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_AutoScaleBTCValues;
+
+        /// <summary>
+        /// Defines the checkBox_DisableWindowsErrorReporting
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_DisableWindowsErrorReporting;
+
+        /// <summary>
+        /// Defines the checkBox_StartMiningWhenIdle
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_StartMiningWhenIdle;
+
+        /// <summary>
+        /// Defines the checkBox_ShowDriverVersionWarning
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_ShowDriverVersionWarning;
+
+        /// <summary>
+        /// Defines the comboBox_CPU0_ForceCPUExtension
+        /// </summary>
         private System.Windows.Forms.ComboBox comboBox_CPU0_ForceCPUExtension;
+
+        /// <summary>
+        /// Defines the label_CPU0_ForceCPUExtension
+        /// </summary>
         private System.Windows.Forms.Label label_CPU0_ForceCPUExtension;
+
+        /// <summary>
+        /// Defines the comboBox_DagLoadMode
+        /// </summary>
         private System.Windows.Forms.ComboBox comboBox_DagLoadMode;
+
+        /// <summary>
+        /// Defines the label_DagGeneration
+        /// </summary>
         private System.Windows.Forms.Label label_DagGeneration;
+
+        /// <summary>
+        /// Defines the algorithmSettingsControl1
+        /// </summary>
         private Components.AlgorithmSettingsControl algorithmSettingsControl1;
+
+        /// <summary>
+        /// Defines the groupBoxAlgorithmSettings
+        /// </summary>
         private System.Windows.Forms.GroupBox groupBoxAlgorithmSettings;
+
+        /// <summary>
+        /// Defines the algorithmsListView1
+        /// </summary>
         private Components.AlgorithmsListView algorithmsListView1;
+
+        /// <summary>
+        /// Defines the benchmarkLimitControlNVIDIA
+        /// </summary>
         private Components.BenchmarkLimitControl benchmarkLimitControlNVIDIA;
+
+        /// <summary>
+        /// Defines the benchmarkLimitControlCPU
+        /// </summary>
         private Components.BenchmarkLimitControl benchmarkLimitControlCPU;
+
+        /// <summary>
+        /// Defines the benchmarkLimitControlAMD
+        /// </summary>
         private Components.BenchmarkLimitControl benchmarkLimitControlAMD;
+
+        /// <summary>
+        /// Defines the pictureBox_Info_BitcoinAddress
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_Info_BitcoinAddress;
+
+        /// <summary>
+        /// Defines the pictureBox_NVIDIAP0State
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_NVIDIAP0State;
+
+        /// <summary>
+        /// Defines the pictureBox_DisableWindowsErrorReporting
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_DisableWindowsErrorReporting;
+
+        /// <summary>
+        /// Defines the pictureBox_ShowDriverVersionWarning
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_ShowDriverVersionWarning;
+
+        /// <summary>
+        /// Defines the pictureBox_StartMiningWhenIdle
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_StartMiningWhenIdle;
+
+        /// <summary>
+        /// Defines the pictureBox_AutoScaleBTCValues
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_AutoScaleBTCValues;
+
+        /// <summary>
+        /// Defines the pictureBox_DisableDetectionAMD
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_DisableDetectionAMD;
+
+        /// <summary>
+        /// Defines the pictureBox_DisableDetectionNVIDIA
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_DisableDetectionNVIDIA;
+
+        /// <summary>
+        /// Defines the pictureBox_MinimizeToTray
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_MinimizeToTray;
+
+        /// <summary>
+        /// Defines the pictureBox_HideMiningWindows
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_HideMiningWindows;
+
+        /// <summary>
+        /// Defines the pictureBox_DebugConsole
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_DebugConsole;
+
+        /// <summary>
+        /// Defines the pictureBox_LogMaxFileSize
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_LogMaxFileSize;
+
+        /// <summary>
+        /// Defines the pictureBox_LogToFile
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_LogToFile;
+
+        /// <summary>
+        /// Defines the pictureBox_WorkerName
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_WorkerName;
+
+        /// <summary>
+        /// Defines the pictureBox_MinProfit
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_MinProfit;
+
+        /// <summary>
+        /// Defines the pictureBox_ServiceLocation
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_ServiceLocation;
+
+        /// <summary>
+        /// Defines the pictureBox5
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox5;
+
+        /// <summary>
+        /// Defines the pictureBox_displayCurrency
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_displayCurrency;
+
+        /// <summary>
+        /// Defines the pictureBox_Language
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_Language;
+
+        /// <summary>
+        /// Defines the devicesListViewEnableControl1
+        /// </summary>
         private Components.DevicesListViewEnableControl devicesListViewEnableControl1;
+
+        /// <summary>
+        /// Defines the pictureBox_MinIdleSeconds
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_MinIdleSeconds;
+
+        /// <summary>
+        /// Defines the pictureBox_SwitchMinSecondsAMD
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_SwitchMinSecondsAMD;
+
+        /// <summary>
+        /// Defines the pictureBox_CPU0_ForceCPUExtension
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_CPU0_ForceCPUExtension;
+
+        /// <summary>
+        /// Defines the pictureBox_MinerAPIQueryInterval
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_MinerAPIQueryInterval;
+
+        /// <summary>
+        /// Defines the pictureBox_SwitchMinSecondsFixed
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_SwitchMinSecondsFixed;
+
+        /// <summary>
+        /// Defines the pictureBox_MinerRestartDelayMS
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_MinerRestartDelayMS;
+
+        /// <summary>
+        /// Defines the pictureBox_APIBindPortStart
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_APIBindPortStart;
+
+        /// <summary>
+        /// Defines the pictureBox_SwitchMinSecondsDynamic
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_SwitchMinSecondsDynamic;
+
+        /// <summary>
+        /// Defines the pictureBox_ethminerDefaultBlockHeight
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_ethminerDefaultBlockHeight;
+
+        /// <summary>
+        /// Defines the pictureBox_DagGeneration
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_DagGeneration;
+
+        /// <summary>
+        /// Defines the checkBox_AutoStartMining
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_AutoStartMining;
+
+        /// <summary>
+        /// Defines the pictureBox_AutoStartMining
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_AutoStartMining;
+
+        /// <summary>
+        /// Defines the checkBox_AMD_DisableAMDTempControl
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_AMD_DisableAMDTempControl;
+
+        /// <summary>
+        /// Defines the pictureBox_AMD_DisableAMDTempControl
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_AMD_DisableAMDTempControl;
+
+        /// <summary>
+        /// Defines the checkBox_DisableDefaultOptimizations
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_DisableDefaultOptimizations;
+
+        /// <summary>
+        /// Defines the pictureBox_DisableDefaultOptimizations
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_DisableDefaultOptimizations;
+
+        /// <summary>
+        /// Defines the checkBox_IdleWhenNoInternetAccess
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_IdleWhenNoInternetAccess;
+
+        /// <summary>
+        /// Defines the pictureBox_IdleWhenNoInternetAccess
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_IdleWhenNoInternetAccess;
+
+        /// <summary>
+        /// Defines the pictureBox_Use3rdPartyMiners
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_Use3rdPartyMiners;
+
+        /// <summary>
+        /// Defines the checkBox_Use3rdPartyMiners
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_Use3rdPartyMiners;
+
+        /// <summary>
+        /// Defines the checkBox_AllowMultipleInstances
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_AllowMultipleInstances;
+
+        /// <summary>
+        /// Defines the pictureBox_AllowMultipleInstances
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_AllowMultipleInstances;
+
+        /// <summary>
+        /// Defines the pictureBox_SwitchProfitabilityThreshold
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_SwitchProfitabilityThreshold;
+
+        /// <summary>
+        /// Defines the textBox_SwitchProfitabilityThreshold
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_SwitchProfitabilityThreshold;
+
+        /// <summary>
+        /// Defines the label_SwitchProfitabilityThreshold
+        /// </summary>
         private System.Windows.Forms.Label label_SwitchProfitabilityThreshold;
+
+        /// <summary>
+        /// Defines the checkBox_RunAtStartup
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_RunAtStartup;
+
+        /// <summary>
+        /// Defines the pictureBox_RunAtStartup
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_RunAtStartup;
+
+        /// <summary>
+        /// Defines the checkBox_MinimizeMiningWindows
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_MinimizeMiningWindows;
+
+        /// <summary>
+        /// Defines the pictureBox_MinimizeMiningWindows
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_MinimizeMiningWindows;
+
+        /// <summary>
+        /// Defines the checkBox_UseIFTTT
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_UseIFTTT;
+
+        /// <summary>
+        /// Defines the pictureBox_UseIFTTT
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_UseIFTTT;
+
+        /// <summary>
+        /// Defines the label_IFTTTAPIKey
+        /// </summary>
         private System.Windows.Forms.Label label_IFTTTAPIKey;
+
+        /// <summary>
+        /// Defines the textBox_IFTTTKey
+        /// </summary>
         private System.Windows.Forms.TextBox textBox_IFTTTKey;
+
+        /// <summary>
+        /// Defines the pictureBox_ShowInternetConnectionWarning
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_ShowInternetConnectionWarning;
+
+        /// <summary>
+        /// Defines the checkBox_ShowInternetConnectionWarning
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_ShowInternetConnectionWarning;
+
+        /// <summary>
+        /// Defines the pictureBox_RunScriptOnCUDA_GPU_Lost
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_RunScriptOnCUDA_GPU_Lost;
+
+        /// <summary>
+        /// Defines the checkBox_RunScriptOnCUDA_GPU_Lost
+        /// </summary>
         private System.Windows.Forms.CheckBox checkBox_RunScriptOnCUDA_GPU_Lost;
+
+        /// <summary>
+        /// Defines the pictureBox_TimeUnit
+        /// </summary>
         private System.Windows.Forms.PictureBox pictureBox_TimeUnit;
+
+        /// <summary>
+        /// Defines the label_TimeUnit
+        /// </summary>
         private System.Windows.Forms.Label label_TimeUnit;
+
+        /// <summary>
+        /// Defines the comboBox_TimeUnit
+        /// </summary>
         private System.Windows.Forms.ComboBox comboBox_TimeUnit;
     }
 }

@@ -15,7 +15,7 @@ namespace zPoolMiner.Forms.Components
 
         private class DefaultDevicesColorSeter : IListItemCheckColorSetter
         {
-            private static Color ENABLED_COLOR = Color.White;
+            private static Color ENABLED_COLOR = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             private static Color DISABLED_COLOR = Color.DarkGray;
 
             public void LviSetColor(ListViewItem lvi)

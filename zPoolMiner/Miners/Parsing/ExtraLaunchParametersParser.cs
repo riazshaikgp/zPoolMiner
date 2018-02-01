@@ -268,9 +268,9 @@ namespace zPoolMiner.Miners.Parsing
 
         private static MinerType GetMinerType(DeviceType deviceType, MinerBaseType minerBaseType, AlgorithmType algorithmType)
         {
-            //if (MinerBaseType.cpuminer == minerBaseType) {
-            //    return MinerType.cpuminer_opt;
-            //}
+            if (MinerBaseType.cpuminer == minerBaseType) {
+                return MinerType.cpuminer_opt;
+            }
             if (MinerBaseType.OptiminerAMD == minerBaseType)
             {
                 return MinerType.OptiminerZcash;
@@ -295,9 +295,9 @@ namespace zPoolMiner.Miners.Parsing
                 }
                 return MinerType.ccminer;
             }
-            if (MinerBaseType.hsrneoscrypt == minerBaseType)
+            if (MinerBaseType.Palgin_Neoscrypt == minerBaseType)
             {
-                return MinerType.hsrneoscrypt;
+                return MinerType.Palgin_Neoscrypt;
             }
             if (MinerBaseType.Claymore == minerBaseType)
             {
@@ -389,7 +389,7 @@ namespace zPoolMiner.Miners.Parsing
                 var algo = MiningPairs[0].Algorithm;
                 if (algo != null)
                 {
-                    algorithmType = algo.NiceHashID;
+                    algorithmType = algo.CryptoMiner937ID;
                     minerBaseType = algo.MinerBaseType;
                 }
             }
@@ -401,7 +401,7 @@ namespace zPoolMiner.Miners.Parsing
             List<MiningPair> setMiningPairs = MiningPairs.ConvertAll((mp) => mp);
             // handle exceptions and package parsing
             // CPU exception
-            if (deviceType == DeviceType.CPU && minerType != MinerType.Xmrig)
+            if (deviceType == DeviceType.CPU)
             {
                 CheckAndSetCPUPairs(setMiningPairs);
             }

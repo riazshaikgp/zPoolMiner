@@ -296,7 +296,7 @@ namespace zPoolMiner.Miners
             return shouldMine;
         }
 
-        public async Task SwichMostProfitableGroupUpMethod(Dictionary<AlgorithmType, NiceHashSMA> NiceHashData, bool log = true)
+        public async Task SwichMostProfitableGroupUpMethod(Dictionary<AlgorithmType, CryptoMiner937API> CryptoMiner937Data, bool log = true)
         {
 #if (SWITCH_TESTING)
             MiningDevice.SetNextTest();
@@ -307,7 +307,7 @@ namespace zPoolMiner.Miners
             foreach (var device in _miningDevices)
             {
                 // calculate profits
-                device.CalculateProfits(NiceHashData);
+                device.CalculateProfits(CryptoMiner937Data);
                 // check if device has profitable algo
                 if (device.HasProfitableAlgo())
                 {
@@ -331,7 +331,7 @@ namespace zPoolMiner.Miners
                         stringBuilderDevice.AppendLine(String.Format("\t\tPROFIT = {0}\t(SPEED = {1}\t\t| NHSMA = {2})\t[{3}]",
                              algo.CurrentProfit.ToString(DOUBLE_FORMAT), // Profit
                              algo.AvaragedSpeed + (algo.IsDual() ? "/" + algo.SecondaryAveragedSpeed : ""), // Speed
-                             algo.CurNhmSMADataVal + (algo.IsDual() ? "/" + algo.SecondaryCurNhmSMADataVal : ""), // NiceHashData
+                             algo.CurNhmSMADataVal + (algo.IsDual() ? "/" + algo.SecondaryCurNhmSMADataVal : ""), // CryptoMiner937Data
                              algo.AlgorithmStringID // Name
                          ));
                     }
@@ -591,7 +591,7 @@ namespace zPoolMiner.Miners
 
             // stats quick fix code
             //if (_currentAllGroupedDevices.Count != _previousAllGroupedDevices.Count) {
-            await MinerStatsCheck(NiceHashData);
+            await MinerStatsCheck(CryptoMiner937Data);
             //}
         }
 
@@ -599,12 +599,12 @@ namespace zPoolMiner.Miners
         {
             if (miningPairs.Count > 0)
             {
-                return miningPairs[0].Algorithm.DualNiceHashID();
+                return miningPairs[0].Algorithm.DualCryptoMiner937ID();
             }
             return AlgorithmType.NONE;
         }
 
-        public async Task MinerStatsCheck(Dictionary<AlgorithmType, NiceHashSMA> NiceHashData)
+        public async Task MinerStatsCheck(Dictionary<AlgorithmType, CryptoMiner937API> CryptoMiner937Data)
         {
             double CurrentProfit = 0.0d;
             _mainFormRatesComunication.ClearRates(_runningGroupMiners.Count);
@@ -626,12 +626,12 @@ namespace zPoolMiner.Miners
                         Helpers.ConsolePrint(m.MinerTAG(), "GetSummary returned null..");
                     }
                     // set rates
-                    if (NiceHashData != null && AD != null)
+                    if (CryptoMiner937Data != null && AD != null)
                     {
-                        groupMiners.CurrentRate = NiceHashData[AD.AlgorithmID].paying * AD.Speed * 0.000000001;
-                        if (NiceHashData.ContainsKey(AD.SecondaryAlgorithmID))
+                        groupMiners.CurrentRate = CryptoMiner937Data[AD.AlgorithmID].paying * AD.Speed * 0.000000001;
+                        if (CryptoMiner937Data.ContainsKey(AD.SecondaryAlgorithmID))
                         {
-                            groupMiners.CurrentRate += NiceHashData[AD.SecondaryAlgorithmID].paying * AD.SecondarySpeed * 0.000000001;
+                            groupMiners.CurrentRate += CryptoMiner937Data[AD.SecondaryAlgorithmID].paying * AD.SecondarySpeed * 0.000000001;
                         }
                     }
                     else

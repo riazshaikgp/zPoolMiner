@@ -26,9 +26,9 @@
                         if (algoSettings.ContainsKey(MinerBaseType.sgminer))
                         {
                             var sgminerAlgos = algoSettings[MinerBaseType.sgminer];
-                            int Lyra2REv2_Index = sgminerAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.Lyra2REv2);
-                            //int NeoScrypt_Index = sgminerAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.NeoScrypt);
-                            int CryptoNight_Index = sgminerAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNight);
+                            int Lyra2REv2_Index = sgminerAlgos.FindIndex((el) => el.CryptoMiner937ID == AlgorithmType.Lyra2REv2);
+                            //int NeoScrypt_Index = sgminerAlgos.FindIndex((el) => el.CryptoMiner937ID == AlgorithmType.NeoScrypt);
+                            int CryptoNight_Index = sgminerAlgos.FindIndex((el) => el.CryptoMiner937ID == AlgorithmType.CryptoNight);
 
                             // Check for optimized version
                             if (Lyra2REv2_Index > -1)
@@ -55,9 +55,9 @@
                         if (algoSettings.ContainsKey(MinerBaseType.GatelessGate))
                         {
                             var glgAlgos = algoSettings[MinerBaseType.GatelessGate];
-                            int Lyra2REv2_Index = glgAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.Lyra2REv2);
-                            int NeoScrypt_Index = glgAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.NeoScrypt);
-                            int CryptoNight_Index = glgAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNight);
+                            int Lyra2REv2_Index = glgAlgos.FindIndex((el) => el.CryptoMiner937ID == AlgorithmType.Lyra2REv2);
+                            int NeoScrypt_Index = glgAlgos.FindIndex((el) => el.CryptoMiner937ID == AlgorithmType.NeoScrypt);
+                            int CryptoNight_Index = glgAlgos.FindIndex((el) => el.CryptoMiner937ID == AlgorithmType.CryptoNight);
 
 
                             // Check for optimized version
@@ -105,7 +105,7 @@
                                 foreach (var algo in algosInMiner.Value)
                                 {
                                     // disable all algos in list
-                                    if (algo.NiceHashID == AlgorithmType.Decred || algo.NiceHashID == AlgorithmType.Lbry)
+                                    if (algo.CryptoMiner937ID == AlgorithmType.Decred || algo.CryptoMiner937ID == AlgorithmType.Lbry)
                                     {
                                         algo.Enabled = false;
                                     }
@@ -117,11 +117,11 @@
                         {
                             var claymoreOldAlgos = algoSettings[MinerBaseType.Claymore_old];
                             var cryptoNightOldIndex =
-                                claymoreOldAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.CryptoNight);
+                                claymoreOldAlgos.FindIndex((el) => el.CryptoMiner937ID == AlgorithmType.CryptoNight);
 
                             var claymoreNewAlgos = algoSettings[MinerBaseType.Claymore];
                             var cryptoNightNewIndex =
-                                claymoreNewAlgos.FindIndex(el => el.NiceHashID == AlgorithmType.CryptoNight);
+                                claymoreNewAlgos.FindIndex(el => el.CryptoMiner937ID == AlgorithmType.CryptoNight);
 
                             if (cryptoNightOldIndex > -1 && cryptoNightNewIndex > -1)
                             {
@@ -171,7 +171,7 @@
                         /*if (algoSettings.ContainsKey(MinerBaseType.mkxminer))
                         {
                             var mkxminerAlgos = algoSettings[MinerBaseType.mkxminer];
-                            int Lyra2REv2_Index = mkxminerAlgos.FindIndex((el) => el.NiceHashID == AlgorithmType.Lyra2REv2);
+                            int Lyra2REv2_Index = mkxminerAlgos.FindIndex((el) => el.CryptoMiner937ID == AlgorithmType.Lyra2REv2);
 
                             if (Lyra2REv2_Index > -1)
                             {
@@ -221,7 +221,7 @@
                             {
                                 foreach (var algo in algoSettings[MinerBaseType.sgminer])
                                 {
-                                    if (algo.NiceHashID == AlgorithmType.DaggerHashimoto)
+                                    if (algo.CryptoMiner937ID == AlgorithmType.DaggerHashimoto)
                                     {
                                         algo.Enabled = false;
                                     }
@@ -229,7 +229,7 @@
                             }
                             //if (algoSettings.ContainsKey(MinerBaseType.Claymore)) {
                             //    foreach (var algo in algoSettings[MinerBaseType.Claymore]) {
-                            //        if (algo.NiceHashID == AlgorithmType.CryptoNight) {
+                            //        if (algo.CryptoMiner937ID == AlgorithmType.CryptoNight) {
                             //            algo.Enabled = false;
                             //        }
                             //    }
@@ -260,7 +260,7 @@
 
                     // This is not needed anymore after excavator v1.1.4a
                     //if (device.IsSM50() && algoSettings.ContainsKey(MinerBaseType.excavator)) {
-                    //    int Equihash_index = algoSettings[MinerBaseType.excavator].FindIndex((algo) => algo.NiceHashID == AlgorithmType.Equihash);
+                    //    int Equihash_index = algoSettings[MinerBaseType.excavator].FindIndex((algo) => algo.CryptoMiner937ID == AlgorithmType.Equihash);
                     //    if (Equihash_index > -1) {
                     //        // -c1 1 needed for SM50 to work ATM
                     //        algoSettings[MinerBaseType.excavator][Equihash_index].ExtraLaunchParameters = "-c1 1";
@@ -311,17 +311,49 @@
             if (DeviceGroupType.CPU == deviceGroupType)
             {
                 return new Dictionary<MinerBaseType, List<Algorithm>>() {
-                    { MinerBaseType.XmrStackCPU,
-                        new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.XmrStackCPU, AlgorithmType.CryptoNight, "cryptonight")
+                    { MinerBaseType.cpuminer,
+                        new List<Algorithm>()
+                        {
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Lyra2REv2, "lyra2rev2"),
+                            new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Yescrypt, "yescrypt"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Blake2s, "blake2s"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Blake256r8, "blakecoin"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Hsr, "x13sm3"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.X17, "x17"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Lbry, "lbry"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Myriad_groestl, "myr-gr"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Skein, "skein"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Timetravel, "timetravel"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Polytimos, "polytimos"),
+                            new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Nist5, "nist5"),
+                            new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Groestl, "groestl"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Skunk, "skunk"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.X11Gost, "x11gost"),
+                            new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Phi, "phi1612"),
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Tribus, "tribus"),
+                            new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Bitcore, "timetravel10"),
+                            new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Xevan, "xevan")
+                            //new Algorithm(MinerBaseType.cpuminer, AlgorithmType.Keccak, "keccak")
+
                         }
                     },
-                    { MinerBaseType.Xmrig,
+                    { MinerBaseType.nheqminer,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNight, "")
+                            new Algorithm(MinerBaseType.nheqminer, AlgorithmType.Equihash, "equihash")
                         }
                     }
                 };
+                /*{ MinerBaseType.XmrStackCPU,
+                    new List<Algorithm>() {
+                        new Algorithm(MinerBaseType.XmrStackCPU, AlgorithmType.CryptoNight, "cryptonight")
+                    }
+                },
+                { MinerBaseType.Xmrig,
+                    new List<Algorithm>() {
+                        new Algorithm(MinerBaseType.Xmrig, AlgorithmType.CryptoNight, "")
+                    }
+                }
+            };*/
             }
             if (DeviceGroupType.AMD_OpenCL == deviceGroupType)
             {
@@ -348,7 +380,7 @@
                             new Algorithm(MinerBaseType.sgminer, AlgorithmType.Blake2s, "sia") { ExtraLaunchParameters = DefaultParam + "--intensity d" },
                             new Algorithm(MinerBaseType.sgminer, AlgorithmType.Hsr, "hsr") { ExtraLaunchParameters = DefaultParam + "--intensity 20" },
                             new Algorithm(MinerBaseType.sgminer, AlgorithmType.Phi, "phi") { ExtraLaunchParameters = DefaultParam + "--intensity 21" },
-                            new Algorithm(MinerBaseType.sgminer, AlgorithmType.Veltor, "veltor") { ExtraLaunchParameters = DefaultParam + "--intensity 19" },
+                            //new Algorithm(MinerBaseType.sgminer, AlgorithmType.Veltor, "veltor") { ExtraLaunchParameters = DefaultParam + "--intensity 19" },
                             new Algorithm(MinerBaseType.sgminer, AlgorithmType.Tribus, "tribus") { ExtraLaunchParameters = DefaultParam + "--shaders 1792 --lookup-gap 4 --intensity 19" },
                             new Algorithm(MinerBaseType.sgminer, AlgorithmType.Xevan, "xevan") { ExtraLaunchParameters = DefaultParam + "--intensity 19" }
 
@@ -441,7 +473,7 @@
                     },
                     { MinerBaseType.ccminer_polytimos,
                         new List<Algorithm>() {
-                            new Algorithm(MinerBaseType.ccminer_polytimos, AlgorithmType.Veltor, "veltor"),
+                            //new Algorithm(MinerBaseType.ccminer_polytimos, AlgorithmType.Veltor, "veltor"),
                             new Algorithm(MinerBaseType.ccminer_polytimos, AlgorithmType.Lbry, "lbry"),
                             new Algorithm(MinerBaseType.ccminer_polytimos, AlgorithmType.Keccak, "keccak"),
                             new Algorithm(MinerBaseType.ccminer_polytimos, AlgorithmType.Skein, "skein"),
@@ -483,15 +515,15 @@
                             new Algorithm(MinerBaseType.ccminer_alexis, AlgorithmType.X17, "x17")
                         }
                     },
-                    //Add HSRNeoscrypt by Palgin
-                    { MinerBaseType.hsrneoscrypt,
+                    //Add Palgin_Neoscrypt by Palgin
+                    { MinerBaseType.Palgin_Neoscrypt,
                          new List<Algorithm>() {
-                             new Algorithm(MinerBaseType.hsrneoscrypt, AlgorithmType.NeoScrypt, "Neoscrypt"),
+                             new Algorithm(MinerBaseType.Palgin_Neoscrypt, AlgorithmType.NeoScrypt, "Neoscrypt"),
                          }
                      },
-                    { MinerBaseType.hsrneoscrypt_hsr,
+                    { MinerBaseType.Palgin_HSR,
                          new List<Algorithm>() {
-                             new Algorithm(MinerBaseType.hsrneoscrypt_hsr, AlgorithmType.Hsr, "hsr")
+                             new Algorithm(MinerBaseType.Palgin_HSR, AlgorithmType.Hsr, "hsr")
                          }
                      },
                     //{ MinerBaseType.ethminer,
@@ -608,7 +640,7 @@
             { // all minerbasekeys
                 foreach (var kvp in minerAlgos)
                 {
-                    var algoList = kvp.Value.FindAll((a) => toRemove.IndexOf(a.NiceHashID) == -1);
+                    var algoList = kvp.Value.FindAll((a) => toRemove.IndexOf(a.CryptoMiner937ID) == -1);
                     if (algoList.Count > 0)
                     {
                         finalRet[kvp.Key] = algoList;
@@ -622,7 +654,7 @@
                     // filter only if base key is defined
                     if (toRemoveBase.IndexOf(kvp.Key) > -1)
                     {
-                        var algoList = kvp.Value.FindAll((a) => toRemove.IndexOf(a.NiceHashID) == -1);
+                        var algoList = kvp.Value.FindAll((a) => toRemove.IndexOf(a.CryptoMiner937ID) == -1);
                         if (algoList.Count > 0)
                         {
                             finalRet[kvp.Key] = algoList;

@@ -1,21 +1,34 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using zPoolMiner.Configs;
-using zPoolMiner.Devices;
-using zPoolMiner.Enums;
-using zPoolMiner.Miners;
-using zPoolMiner.Miners.Grouping;
-using zPoolMiner.Miners.Parsing;
-
-namespace zPoolMiner.Forms
+﻿namespace zPoolMiner.Forms
 {
+    using Microsoft.Win32;
+    using System;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+    using zPoolMiner.Configs;
+    using zPoolMiner.Devices;
+    using zPoolMiner.Enums;
+    using zPoolMiner.Miners;
+    using zPoolMiner.Miners.Grouping;
+    using zPoolMiner.Miners.Parsing;
+
+    /// <summary>
+    /// Defines the <see cref="Form_Settings" />
+    /// </summary>
     public partial class Form_Settings : Form
     {
+        /// <summary>
+        /// Defines the _isInitFinished
+        /// </summary>
         private bool _isInitFinished = false;
+
+        /// <summary>
+        /// Defines the _isChange
+        /// </summary>
         private bool _isChange = false;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether IsChange
+        /// </summary>
         public bool IsChange
         {
             get { return _isChange; }
@@ -32,18 +45,45 @@ namespace zPoolMiner.Forms
             }
         }
 
+        /// <summary>
+        /// Defines the isCredChange
+        /// </summary>
         private bool isCredChange = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether IsChangeSaved
+        /// </summary>
         public bool IsChangeSaved { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether IsRestartNeeded
+        /// </summary>
         public bool IsRestartNeeded { get; private set; }
 
         // most likely we wil have settings only per unique devices
+        // most likely we wil have settings only per unique devices        /// <summary>
+        /// Defines the ShowUniqueDeviceList
+        /// </summary>
         private bool ShowUniqueDeviceList = true;
 
+        /// <summary>
+        /// Defines the _selectedComputeDevice
+        /// </summary>
         private ComputeDevice _selectedComputeDevice;
 
+        /// <summary>
+        /// Defines the rkStartup
+        /// </summary>
         private RegistryKey rkStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+        /// <summary>
+        /// Defines the isStartupChanged
+        /// </summary>
         private bool isStartupChanged = false;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Form_Settings"/> class.
+        /// </summary>
         public Form_Settings()
         {
             InitializeComponent();
@@ -84,8 +124,9 @@ namespace zPoolMiner.Forms
             _isInitFinished = true;
         }
 
-        #region Initializations
-
+        /// <summary>
+        /// The InitializeToolTip
+        /// </summary>
         private void InitializeToolTip()
         {
             // Setup Tooltips
@@ -243,8 +284,9 @@ namespace zPoolMiner.Forms
             algorithmSettingsControl1.InitLocale(toolTip1);
         }
 
-        #region Form this
-
+        /// <summary>
+        /// The InitializeFormTranslations
+        /// </summary>
         private void InitializeFormTranslations()
         {
             buttonDefaults.Text = International.GetText("Form_Settings_buttonDefaultsText");
@@ -252,10 +294,9 @@ namespace zPoolMiner.Forms
             buttonCloseNoSave.Text = International.GetText("Form_Settings_buttonCloseNoSaveText");
         }
 
-        #endregion Form this
-
-        #region Tab General
-
+        /// <summary>
+        /// The InitializeGeneralTabTranslations
+        /// </summary>
         private void InitializeGeneralTabTranslations()
         {
             checkBox_DebugConsole.Text = International.GetText("Form_Settings_General_DebugConsole");
@@ -345,6 +386,9 @@ namespace zPoolMiner.Forms
             label_SwitchProfitabilityThreshold.Text = International.GetText("Form_Settings_General_SwitchProfitabilityThreshold");
         }
 
+        /// <summary>
+        /// The InitializeGeneralTabCallbacks
+        /// </summary>
         private void InitializeGeneralTabCallbacks()
         {
             // Add EventHandler for all the general tab's checkboxes
@@ -417,6 +461,9 @@ namespace zPoolMiner.Forms
             comboBox_DagLoadMode.SelectedIndex = (int)ConfigManager.GeneralConfig.EthminerDagGenerationType;
         }
 
+        /// <summary>
+        /// The InitializeGeneralTabFieldValuesReferences
+        /// </summary>
         private void InitializeGeneralTabFieldValuesReferences()
         {
             // Checkboxes set checked value
@@ -508,6 +555,9 @@ namespace zPoolMiner.Forms
             }
         }
 
+        /// <summary>
+        /// The InitializeGeneralTab
+        /// </summary>
         private void InitializeGeneralTab()
         {
             InitializeGeneralTabTranslations();
@@ -515,28 +565,27 @@ namespace zPoolMiner.Forms
             InitializeGeneralTabFieldValuesReferences();
         }
 
-        #endregion Tab General
-
-        #region Tab Devices
-
+        /// <summary>
+        /// The InitializeDevicesTab
+        /// </summary>
         private void InitializeDevicesTab()
         {
             InitializeDevicesCallbacks();
         }
 
+        /// <summary>
+        /// The InitializeDevicesCallbacks
+        /// </summary>
         private void InitializeDevicesCallbacks()
         {
             devicesListViewEnableControl1.SetDeviceSelectionChangedCallback(DevicesListView1_ItemSelectionChanged);
         }
 
-        #endregion Tab Devices
-
-        #endregion Initializations
-
-        #region Form Callbacks
-
-        #region Tab General
-
+        /// <summary>
+        /// The GeneralCheckBoxes_CheckedChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void GeneralCheckBoxes_CheckedChanged(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
@@ -562,6 +611,11 @@ namespace zPoolMiner.Forms
             ConfigManager.GeneralConfig.RunScriptOnCUDA_GPU_Lost = checkBox_RunScriptOnCUDA_GPU_Lost.Checked;
         }
 
+        /// <summary>
+        /// The CheckBox_AMD_DisableAMDTempControl_CheckedChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void CheckBox_AMD_DisableAMDTempControl_CheckedChanged(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
@@ -575,17 +629,22 @@ namespace zPoolMiner.Forms
                 {
                     foreach (var algorithm in cDev.GetAlgorithmSettings())
                     {
-                        if (algorithm.NiceHashID != AlgorithmType.DaggerHashimoto)
+                        if (algorithm.CryptoMiner937ID != AlgorithmType.DaggerHashimoto)
                         {
                             algorithm.ExtraLaunchParameters += AmdGpuDevice.TemperatureParam;
                             algorithm.ExtraLaunchParameters = ExtraLaunchParametersParser.ParseForMiningPair(
-                                new MiningPair(cDev, algorithm), algorithm.NiceHashID, DeviceType.AMD, false);
+                                new MiningPair(cDev, algorithm), algorithm.CryptoMiner937ID, DeviceType.AMD, false);
                         }
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// The CheckBox_DisableDefaultOptimizations_CheckedChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void CheckBox_DisableDefaultOptimizations_CheckedChanged(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
@@ -600,11 +659,11 @@ namespace zPoolMiner.Forms
                     foreach (var algorithm in cDev.GetAlgorithmSettings())
                     {
                         algorithm.ExtraLaunchParameters = "";
-                        if (cDev.DeviceType == DeviceType.AMD && algorithm.NiceHashID != AlgorithmType.DaggerHashimoto)
+                        if (cDev.DeviceType == DeviceType.AMD && algorithm.CryptoMiner937ID != AlgorithmType.DaggerHashimoto)
                         {
                             algorithm.ExtraLaunchParameters += AmdGpuDevice.TemperatureParam;
                             algorithm.ExtraLaunchParameters = ExtraLaunchParametersParser.ParseForMiningPair(
-                                new MiningPair(cDev, algorithm), algorithm.NiceHashID, cDev.DeviceType, false);
+                                new MiningPair(cDev, algorithm), algorithm.CryptoMiner937ID, cDev.DeviceType, false);
                         }
                     }
                 }
@@ -617,23 +676,32 @@ namespace zPoolMiner.Forms
                     var deviceDefaultsAlgoSettings = GroupAlgorithms.CreateForDeviceList(cDev);
                     foreach (var defaultAlgoSettings in deviceDefaultsAlgoSettings)
                     {
-                        var toSetAlgo = cDev.GetAlgorithm(defaultAlgoSettings.MinerBaseType, defaultAlgoSettings.NiceHashID, defaultAlgoSettings.SecondaryNiceHashID);
+                        var toSetAlgo = cDev.GetAlgorithm(defaultAlgoSettings.MinerBaseType, defaultAlgoSettings.CryptoMiner937ID, defaultAlgoSettings.SecondaryCryptoMiner937ID);
                         if (toSetAlgo != null)
                         {
                             toSetAlgo.ExtraLaunchParameters = defaultAlgoSettings.ExtraLaunchParameters;
                             toSetAlgo.ExtraLaunchParameters = ExtraLaunchParametersParser.ParseForMiningPair(
-                                new MiningPair(cDev, toSetAlgo), toSetAlgo.NiceHashID, cDev.DeviceType, false);
+                                new MiningPair(cDev, toSetAlgo), toSetAlgo.CryptoMiner937ID, cDev.DeviceType, false);
                         }
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// The CheckBox_RunAtStartup_CheckedChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void CheckBox_RunAtStartup_CheckedChanged(object sender, EventArgs e)
         {
             isStartupChanged = true;
         }
 
+        /// <summary>
+        /// The IsInStartupRegistry
+        /// </summary>
+        /// <returns>The <see cref="bool"/></returns>
         private bool IsInStartupRegistry()
         {
             // Value is stored in registry
@@ -649,6 +717,11 @@ namespace zPoolMiner.Forms
             return startVal == Application.ExecutablePath;
         }
 
+        /// <summary>
+        /// The GeneralTextBoxes_Leave
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void GeneralTextBoxes_Leave(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
@@ -689,6 +762,11 @@ namespace zPoolMiner.Forms
             textBox_APIBindPortStart.Text = ConfigManager.GeneralConfig.ApiBindPortPoolStart.ToString();
         }
 
+        /// <summary>
+        /// The GeneralComboBoxes_Leave
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void GeneralComboBoxes_Leave(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
@@ -699,16 +777,22 @@ namespace zPoolMiner.Forms
             ConfigManager.GeneralConfig.EthminerDagGenerationType = (DagGenerationType)comboBox_DagLoadMode.SelectedIndex;
         }
 
+        /// <summary>
+        /// The ComboBox_CPU0_ForceCPUExtension_SelectedIndexChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void ComboBox_CPU0_ForceCPUExtension_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cmbbox = (ComboBox)sender;
             ConfigManager.GeneralConfig.ForceCPUExtension = (CPUExtensionType)cmbbox.SelectedIndex;
         }
 
-        #endregion Tab General
-
-        #region Tab Device
-
+        /// <summary>
+        /// The DevicesListView1_ItemSelectionChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="ListViewItemSelectionChangedEventArgs"/></param>
         private void DevicesListView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             algorithmSettingsControl1.Deselect();
@@ -718,6 +802,11 @@ namespace zPoolMiner.Forms
             groupBoxAlgorithmSettings.Text = String.Format(International.GetText("FormSettings_AlgorithmsSettings"), _selectedComputeDevice.Name);
         }
 
+        /// <summary>
+        /// The ButtonSelectedProfit_Click
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void ButtonSelectedProfit_Click(object sender, EventArgs e)
         {
             if (_selectedComputeDevice == null)
@@ -730,14 +819,19 @@ namespace zPoolMiner.Forms
             var url = Links.NHM_Profit_Check + _selectedComputeDevice.Name;
             foreach (var algorithm in _selectedComputeDevice.GetAlgorithmSettingsFastest())
             {
-                var id = (int)algorithm.NiceHashID;
-                //url += "&speed" + id + "=" + ProfitabilityCalculator.GetFormatedSpeed(algorithm.BenchmarkSpeed, algorithm.NiceHashID).ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+                var id = (int)algorithm.CryptoMiner937ID;
+                //url += "&speed" + id + "=" + ProfitabilityCalculator.GetFormatedSpeed(algorithm.BenchmarkSpeed, algorithm.CryptoMiner937ID).ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
             }
             url += "&nhmver=" + Application.ProductVersion.ToString();  // Add version info
             url += "&cost=1&power=1"; // Set default power and cost to 1
             System.Diagnostics.Process.Start(url);
         }
 
+        /// <summary>
+        /// The ButtonAllProfit_Click
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void ButtonAllProfit_Click(object sender, EventArgs e)
         {
             var url = Links.NHM_Profit_Check + "CUSTOM";
@@ -746,13 +840,13 @@ namespace zPoolMiner.Forms
             {
                 foreach (var algorithm in curCDev.GetAlgorithmSettingsFastest())
                 {
-                    if (total.ContainsKey(algorithm.NiceHashID))
+                    if (total.ContainsKey(algorithm.CryptoMiner937ID))
                     {
-                        total[algorithm.NiceHashID] += algorithm.BenchmarkSpeed;
+                        total[algorithm.CryptoMiner937ID] += algorithm.BenchmarkSpeed;
                     }
                     else
                     {
-                        total[algorithm.NiceHashID] = algorithm.BenchmarkSpeed;
+                        total[algorithm.CryptoMiner937ID] = algorithm.BenchmarkSpeed;
                     }
                 }
             }
@@ -766,15 +860,21 @@ namespace zPoolMiner.Forms
             System.Diagnostics.Process.Start(url);
         }
 
-        #endregion Tab Device
-
+        /// <summary>
+        /// The ToolTip1_Popup
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="PopupEventArgs"/></param>
         private void ToolTip1_Popup(object sender, PopupEventArgs e)
         {
             toolTip1.ToolTipTitle = International.GetText("Form_Settings_ToolTip_Explaination");
         }
 
-        #region Form Buttons
-
+        /// <summary>
+        /// The ButtonDefaults_Click
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void ButtonDefaults_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(International.GetText("Form_Settings_buttonDefaultsMsg"),
@@ -793,6 +893,11 @@ namespace zPoolMiner.Forms
             }
         }
 
+        /// <summary>
+        /// The ButtonSaveClose_Click
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void ButtonSaveClose_Click(object sender, EventArgs e)
         {
             MessageBox.Show(International.GetText("Form_Settings_buttonSaveMsg"),
@@ -809,14 +914,22 @@ namespace zPoolMiner.Forms
             this.Close();
         }
 
+        /// <summary>
+        /// The ButtonCloseNoSave_Click
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void ButtonCloseNoSave_Click(object sender, EventArgs e)
         {
             IsChangeSaved = false;
             this.Close();
         }
 
-        #endregion Form Buttons
-
+        /// <summary>
+        /// The FormSettings_FormClosing
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="FormClosingEventArgs"/></param>
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (IsChange && !IsChangeSaved)
@@ -868,14 +981,22 @@ namespace zPoolMiner.Forms
             }
         }
 
+        /// <summary>
+        /// The CurrencyConverterCombobox_SelectedIndexChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void CurrencyConverterCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var Selected = currencyConverterCombobox.SelectedItem.ToString();
             ConfigManager.GeneralConfig.DisplayCurrency = Selected;
         }
 
-        #endregion Form Callbacks
-
+        /// <summary>
+        /// The TabControlGeneral_Selected
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="TabControlEventArgs"/></param>
         private void TabControlGeneral_Selected(object sender, TabControlEventArgs e)
         {
             // set first device selected {
@@ -885,6 +1006,11 @@ namespace zPoolMiner.Forms
             }
         }
 
+        /// <summary>
+        /// The CheckBox_Use3rdPartyMiners_CheckedChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void CheckBox_Use3rdPartyMiners_CheckedChanged(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
@@ -901,6 +1027,11 @@ namespace zPoolMiner.Forms
             }
         }
 
+        /// <summary>
+        /// The CheckBox_HideMiningWindows_CheckChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void CheckBox_HideMiningWindows_CheckChanged(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
@@ -909,6 +1040,11 @@ namespace zPoolMiner.Forms
             checkBox_MinimizeMiningWindows.Enabled = !checkBox_HideMiningWindows.Checked;
         }
 
+        /// <summary>
+        /// The CheckBox_UseIFTTT_CheckChanged
+        /// </summary>
+        /// <param name="sender">The <see cref="object"/></param>
+        /// <param name="e">The <see cref="EventArgs"/></param>
         private void CheckBox_UseIFTTT_CheckChanged(object sender, EventArgs e)
         {
             if (!_isInitFinished) return;
@@ -918,29 +1054,6 @@ namespace zPoolMiner.Forms
 
             textBox_IFTTTKey.Enabled = checkBox_UseIFTTT.Checked;
         }
-
-        private void ButtonSelectedProfit_Click_1(object sender, EventArgs e)
-        {
-        }
-
-        private void label_MinerAPIQueryInterval_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_CPU0_ForceCPUExtension_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_SwitchMinSecondsDynamic_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void algorithmSettingsControl1_Load(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

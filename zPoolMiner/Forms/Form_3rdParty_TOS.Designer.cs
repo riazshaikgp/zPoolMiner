@@ -51,7 +51,7 @@
             // label_Tos
             // 
             this.label_Tos.AutoSize = true;
-            this.label_Tos.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.label_Tos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.label_Tos.Location = new System.Drawing.Point(12, 9);
             this.label_Tos.MaximumSize = new System.Drawing.Size(350, 0);
             this.label_Tos.Name = "label_Tos";
@@ -65,7 +65,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.ClientSize = new System.Drawing.Size(384, 295);
             this.Controls.Add(this.label_Tos);
             this.Controls.Add(this.button_Decline);

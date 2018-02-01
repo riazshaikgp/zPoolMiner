@@ -1,58 +1,153 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using zPoolMiner.Configs;
-using zPoolMiner.Enums;
-using zPoolMiner.Miners.Grouping;
-using zPoolMiner.Miners.Parsing;
-
-namespace zPoolMiner.Miners
+﻿namespace zPoolMiner.Miners
 {
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Net.Sockets;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using zPoolMiner.Configs;
+    using zPoolMiner.Enums;
+    using zPoolMiner.Miners.Grouping;
+    using zPoolMiner.Miners.Parsing;
+
+    /// <summary>
+    /// Defines the <see cref="EWBF" />
+    /// </summary>
     public class EWBF : Miner
     {
+        /// <summary>
+        /// Defines the <see cref="Result" />
+        /// </summary>
         private class Result
         {
+            /// <summary>
+            /// Gets or sets the Gpuid
+            /// </summary>
             public uint Gpuid { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Cudaid
+            /// </summary>
             public uint Cudaid { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Busid
+            /// </summary>
             public string Busid { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Gpu_status
+            /// </summary>
             public uint Gpu_status { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Solver
+            /// </summary>
             public int Solver { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Temperature
+            /// </summary>
             public int Temperature { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Gpu_power_usage
+            /// </summary>
             public uint Gpu_power_usage { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Speed_sps
+            /// </summary>
             public uint Speed_sps { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Accepted_shares
+            /// </summary>
             public uint Accepted_shares { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Rejected_shares
+            /// </summary>
             public uint Rejected_shares { get; set; }
         }
 
+        /// <summary>
+        /// Defines the <see cref="JsonApiResponse" />
+        /// </summary>
         private class JsonApiResponse
         {
+            /// <summary>
+            /// Gets or sets the Id
+            /// </summary>
             public uint Id { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Method
+            /// </summary>
             public string Method { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Error
+            /// </summary>
             public object Error { get; set; }
+
+            /// <summary>
+            /// Gets or sets the Result
+            /// </summary>
             public List<Result> Result { get; set; }
         }
 
+        /// <summary>
+        /// Defines the benchmarkTimeWait
+        /// </summary>
         private int benchmarkTimeWait = 2 * 45;
+
+        /// <summary>
+        /// Defines the LOOK_FOR_START
+        /// </summary>
         private const string LOOK_FOR_START = "total speed: ";
+
+        /// <summary>
+        /// Defines the benchmark_read_count
+        /// </summary>
         private int benchmark_read_count = 0;
+
+        /// <summary>
+        /// Defines the benchmark_sum
+        /// </summary>
         private double benchmark_sum = 0.0d;
+
+        /// <summary>
+        /// Defines the LOOK_FOR_END
+        /// </summary>
         private const string LOOK_FOR_END = "sol/s";
+
+        /// <summary>
+        /// Defines the DevFee
+        /// </summary>
         private const double DevFee = 2.0;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EWBF"/> class.
+        /// </summary>
         public EWBF() : base("ewbf")
         {
             ConectionType = NHMConectionType.NONE;
             IsNeverHideMiningWindow = true;
         }
 
+        /// <summary>
+        /// The Start
+        /// </summary>
+        /// <param name="url">The <see cref="string"/></param>
+        /// <param name="btcAdress">The <see cref="string"/></param>
+        /// <param name="worker">The <see cref="string"/></param>
         public override void Start(string url, string btcAdress, string worker)
         {
             LastCommandLine = GetStartCommand(url, btcAdress, worker);
@@ -73,6 +168,13 @@ namespace zPoolMiner.Miners
             ProcessHandle = _Start();
         }
 
+        /// <summary>
+        /// The GetStartCommand
+        /// </summary>
+        /// <param name="url">The <see cref="string"/></param>
+        /// <param name="btcAddress">The <see cref="string"/></param>
+        /// <param name="worker">The <see cref="string"/></param>
+        /// <returns>The <see cref="string"/></returns>
         private string GetStartCommand(string url, string btcAddress, string worker)
         {
             var ret = GetDevicesCommandString()
@@ -86,6 +188,10 @@ namespace zPoolMiner.Miners
             return ret;
         }
 
+        /// <summary>
+        /// The GetDevicesCommandString
+        /// </summary>
+        /// <returns>The <see cref="string"/></returns>
         protected override string GetDevicesCommandString()
         {
             string deviceStringCommand = " --cuda_devices ";
@@ -100,6 +206,10 @@ namespace zPoolMiner.Miners
         }
 
         // benchmark stuff
+        /// <summary>
+        /// The KillMinerBase
+        /// </summary>
+        /// <param name="exeName">The <see cref="string"/></param>
         protected void KillMinerBase(string exeName)
         {
             foreach (Process process in Process.GetProcessesByName(exeName))
@@ -108,16 +218,26 @@ namespace zPoolMiner.Miners
             }
         }
 
+        /// <summary>
+        /// The BenchmarkCreateCommandLine
+        /// </summary>
+        /// <param name="algorithm">The <see cref="Algorithm"/></param>
+        /// <param name="time">The <see cref="int"/></param>
+        /// <returns>The <see cref="string"/></returns>
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             CleanAllOldLogs();
 
-            string server = Globals.GetLocationURL(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
+            string server = Globals.GetLocationURL(algorithm.CryptoMiner937ID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             string ret = " --log 2 --logfile benchmark_log.txt" + GetStartCommand(server, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
             benchmarkTimeWait = Math.Max(time * 3, 90);  // EWBF takes a long time to get started
             return ret;
         }
 
+        /// <summary>
+        /// The BenchmarkThreadRoutine
+        /// </summary>
+        /// <param name="CommandLine">The <see cref="object"/></param>
         protected override void BenchmarkThreadRoutine(object CommandLine)
         {
             Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS);
@@ -252,6 +372,9 @@ namespace zPoolMiner.Miners
             }
         }
 
+        /// <summary>
+        /// The CleanAllOldLogs
+        /// </summary>
         protected void CleanAllOldLogs()
         {
             // clean old logs
@@ -274,22 +397,43 @@ namespace zPoolMiner.Miners
         }
 
         // stub benchmarks read from file
+        /// <summary>
+        /// The BenchmarkOutputErrorDataReceivedImpl
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
         {
             CheckOutdata(outdata);
         }
 
+        /// <summary>
+        /// The BenchmarkParseLine
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
+        /// <returns>The <see cref="bool"/></returns>
         protected override bool BenchmarkParseLine(string outdata)
         {
             Helpers.ConsolePrint("BENCHMARK", outdata);
             return false;
         }
 
+        /// <summary>
+        /// The GetNumber
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
+        /// <returns>The <see cref="double"/></returns>
         protected double GetNumber(string outdata)
         {
             return GetNumber(outdata, LOOK_FOR_START, LOOK_FOR_END);
         }
 
+        /// <summary>
+        /// The GetNumber
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
+        /// <param name="LOOK_FOR_START">The <see cref="string"/></param>
+        /// <param name="LOOK_FOR_END">The <see cref="string"/></param>
+        /// <returns>The <see cref="double"/></returns>
         protected double GetNumber(string outdata, string LOOK_FOR_START, string LOOK_FOR_END)
         {
             try
@@ -321,6 +465,10 @@ namespace zPoolMiner.Miners
             return 0;
         }
 
+        /// <summary>
+        /// The GetSummaryAsync
+        /// </summary>
+        /// <returns>The <see cref="Task{APIData}"/></returns>
         public override async Task<APIData> GetSummaryAsync()
         {
             _currentMinerReadStatus = MinerAPIReadStatus.NONE;
@@ -357,11 +505,19 @@ namespace zPoolMiner.Miners
             return ad;
         }
 
+        /// <summary>
+        /// The _Stop
+        /// </summary>
+        /// <param name="willswitch">The <see cref="MinerStopType"/></param>
         protected override void _Stop(MinerStopType willswitch)
         {
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         }
 
+        /// <summary>
+        /// The GET_MAX_CooldownTimeInMilliseconds
+        /// </summary>
+        /// <returns>The <see cref="int"/></returns>
         protected override int GET_MAX_CooldownTimeInMilliseconds()
         {
             return 60 * 1000 * 5; // 5 minute max, whole waiting time 75seconds

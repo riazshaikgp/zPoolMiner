@@ -1,4 +1,5 @@
 ﻿using zPoolMiner.Enums;
+using zPoolMiner.Configs;
 
 namespace zPoolMiner.Devices
 {
@@ -40,18 +41,18 @@ namespace zPoolMiner.Devices
         ///// Returns automatic if NO extension is avaliable
         ///// </summary>
         ///// <returns></returns>
-        //public static CPUExtensionType GetMostOptimized() {
-        //    if (ConfigManager.GeneralConfig.ForceCPUExtension == CPUExtensionType.Automatic) {
-        //        for (int i = 0; i < _detectOrder.Length; ++i) {
-        //            if (HasExtensionSupport(_detectOrder[i])) {
-        //                return _detectOrder[i];
-        //            }
-        //        }
-        //    } else if (HasExtensionSupport(ConfigManager.GeneralConfig.ForceCPUExtension)) {
-        //        return ConfigManager.GeneralConfig.ForceCPUExtension;
-        //    }
-        //    return CPUExtensionType.Automatic;
-        //}
+        /*public static CPUExtensionType GetMostOptimized() {
+            if (ConfigManager.GeneralConfig.ForceCPUExtension == CPUExtensionType.Automatic) {
+                for (int i = 0; i < _detectOrder.Length; ++i) {
+                    if (HasExtensionSupport(_detectOrder[i])) {
+                        return _detectOrder[i];
+                    }
+                }
+            } else if (HasExtensionSupport(ConfigManager.GeneralConfig.ForceCPUExtension)) {
+                return ConfigManager.GeneralConfig.ForceCPUExtension;
+            }
+            return CPUExtensionType.Automatic;
+        }*/
 
         /// <summary>
         /// Checks if CPU mining is capable, CPU must have AES support

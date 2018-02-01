@@ -196,7 +196,7 @@ namespace zPoolMiner.Devices
                 // Order important CPU Query must be first
                 // #1 CPU
                 // We skip CPUs because zPool does not have cryptonight
-                //CPU.QueryCPUs();
+                CPU.QueryCPUs();
                 // #2 CUDA
                 if (NVIDIA.IsSkipNVIDIA())
                 {

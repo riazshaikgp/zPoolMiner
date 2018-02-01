@@ -1,22 +1,31 @@
 ﻿namespace zPoolMiner
 {
     using System;
-    using System.Diagnostics;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
     using System.Drawing;
-    using System.Globalization;
-    using System.IO;
-    using System.Management;
+    using System.Text;
     using System.Windows.Forms;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Management;
     using zPoolMiner.Configs;
     using zPoolMiner.Devices;
     using zPoolMiner.Enums;
     using zPoolMiner.Forms;
-    using zPoolMiner.Forms.Components;
-    using zPoolMiner.Interfaces;
     using zPoolMiner.Miners;
+    using zPoolMiner.Interfaces;
+    using zPoolMiner.Forms.Components;
     using zPoolMiner.Utils;
+    using zPoolMiner.PInvoke;
+    using zPoolMiner.Miners.Grouping;
+    using zPoolMiner.Miners.Parsing;
+    using System.IO;
+
     using SystemTimer = System.Timers.Timer;
     using Timer = System.Windows.Forms.Timer;
+    using System.Timers;
 
     /// <summary>
     /// Defines the <see cref="Form_Main" />
@@ -205,8 +214,7 @@
             }
             labelBitcoinAddress.Text = International.GetText("BitcoinAddress") + ":";
             labelWorkerName.Text = International.GetText("WorkerName") + ":";
-
-            linkLabelCheckStats.Text = International.GetText("Form_Main_check_stats");
+            
             linkLabelChooseBTCWallet.Text = International.GetText("Form_Main_choose_bitcoin_wallet");
 
             toolStripStatusLabelGlobalRateText.Text = International.GetText("Form_Main_global_rate") + ":";
@@ -222,7 +230,7 @@
             buttonHelp.Text = International.GetText("Form_Main_help");
 
             label_NotProfitable.Text = International.GetText("Form_Main_MINING_NOT_PROFITABLE");
-            groupBox1.Text = International.GetText("Form_Main_Group_Device_Rates");
+            groupBox1.Text = String.Format(International.GetText("Form_Main_Group_Device_Rates"), International.GetText("Form_Main_SMA_Update_NEVER"));
         }
 
         /// <summary>
@@ -391,12 +399,12 @@
             MinerStatsCheck.Interval = ConfigManager.GeneralConfig.MinerAPIQueryInterval * 1000;
 
 
-            deviceStats.ResetComputeDevices(ComputeDeviceManager.Avaliable.AllAvaliableDevices);
-            deviceStats.SaveToGeneralConfig = false;
-            deviceStats.IsMining = true;
+            deviceStats1.ResetComputeDevices(ComputeDeviceManager.Avaliable.AllAvaliableDevices);
+            deviceStats1.SaveToGeneralConfig = false;
+            deviceStats1.IsMining = true;
             DeviceStatsCheck = new Timer();
             DeviceStatsCheck.Tick += DeviceStatsCheck_Tick;
-            DeviceStatsCheck.Interval = 500;
+            DeviceStatsCheck.Interval = 1000;
             DeviceStatsCheck.Start();
 
             SMAMinerCheck = new Timer();
@@ -449,6 +457,13 @@
             }
 
             LoadingScreen.FinishLoad();
+            // Use last saved rates if exist
+            if (Globals.CryptoMiner937Data == null && ConfigManager.GeneralConfig.CryptoMiner937Data != null)
+            {
+                Globals.CryptoMiner937Data = ConfigManager.GeneralConfig.CryptoMiner937Data;
+                groupBox1.Text = String.Format(International.GetText("Form_Main_Group_Device_Rates"), ConfigManager.GeneralConfig.CryptoMiner937DataTimeStamp);
+            }
+
 
             bool runVCRed = !MinersExistanceChecker.IsMinersBinsInit() && !ConfigManager.GeneralConfig.DownloadInit;
             // standard miners check scope
@@ -540,7 +555,7 @@
 
         private void DeviceStatsCheck_Tick(object sender, EventArgs e)
         {
-            deviceStats.ResetComputeDevices(ComputeDeviceManager.Avaliable.AllAvaliableDevices);
+            deviceStats1.ResetComputeDevices(ComputeDeviceManager.Avaliable.AllAvaliableDevices);
         }
 
         /// <summary>
@@ -593,7 +608,7 @@
             if (isSMAUpdated)
             {  // Don't bother checking for new profits unless SMA has changed
                 isSMAUpdated = false;
-                await MinersManager.SwichMostProfitableGroupUpMethod(Globals.NiceHashData);
+                await MinersManager.SwichMostProfitableGroupUpMethod(Globals.CryptoMiner937Data);
             }
         }
 
@@ -604,7 +619,7 @@
         /// <param name="e">The <see cref="EventArgs"/></param>
         async private void MinerStatsCheck_Tick(object sender, EventArgs e)
         {
-            await MinersManager.MinerStatsCheck(Globals.NiceHashData);
+            await MinersManager.MinerStatsCheck(Globals.CryptoMiner937Data);
         }
 
         /// <summary>
@@ -844,8 +859,14 @@
             Helpers.ConsolePrint("NICEHASH", "SMA Update");
             isSMAUpdated = true;
             if (CryptoStats.AlgorithmRates != null)
-            {
-                Globals.NiceHashData = CryptoStats.AlgorithmRates;
+                            {
+                Globals.CryptoMiner937Data = CryptoStats.AlgorithmRates; Globals.CryptoMiner937Data = CryptoStats.AlgorithmRates;
+                                // Save new rates to config
+                ConfigManager.GeneralConfig.CryptoMiner937Data = CryptoStats.AlgorithmRates;
+                ConfigManager.GeneralConfig.CryptoMiner937DataTimeStamp = DateTime.Now;
+                ConfigManager.GeneralConfigFileCommit();
+                
+                groupBox1.Text = String.Format(International.GetText("Form_Main_Group_Device_Rates"), ConfigManager.GeneralConfig.CryptoMiner937DataTimeStamp);
             }
         }
 
@@ -873,7 +894,7 @@
         /// <param name="e">The <see cref="EventArgs"/></param>
         private void ConnectionLostCallback(object sender, EventArgs e)
         {
-            if (Globals.NiceHashData == null && ConfigManager.GeneralConfig.ShowInternetConnectionWarning && ShowWarningNiceHashData)
+            if (Globals.CryptoMiner937Data == null && ConfigManager.GeneralConfig.ShowInternetConnectionWarning && ShowWarningNiceHashData)
             {
                 ShowWarningNiceHashData = false;
                 DialogResult dialogResult = MessageBox.Show(International.GetText("Form_Main_msgbox_NoInternetMsg"),
@@ -1132,7 +1153,7 @@
         /// <param name="e">The <see cref="EventArgs"/></param>
         private void ButtonHelp_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(Links.NHM_Help);
+            CryptoStats.SetCredentials(textBoxBTCAddress.Text.Trim(), textBoxWorkerName.Text.Trim());
         }
 
         /// <summary>
@@ -1275,7 +1296,7 @@
             }
             else if (!VerifyMiningAddress(true)) return StartMiningReturnType.IgnoreMsg;
 
-            if (Globals.NiceHashData == null)
+            if (Globals.CryptoMiner937Data == null)
             {
                 if (showWarnings)
                 {

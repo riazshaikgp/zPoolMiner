@@ -1,11 +1,19 @@
-﻿using zPoolMiner.Devices;
-using zPoolMiner.Enums;
-using zPoolMiner.Miners.Equihash;
-
-namespace zPoolMiner.Miners
+﻿namespace zPoolMiner.Miners
 {
+    using zPoolMiner.Devices;
+    using zPoolMiner.Enums;
+    using zPoolMiner.Miners.Equihash;
+
+    /// <summary>
+    /// Defines the <see cref="MinerFactory" />
+    /// </summary>
     public class MinerFactory
     {
+        /// <summary>
+        /// The CreateEthminer
+        /// </summary>
+        /// <param name="deviceType">The <see cref="DeviceType"/></param>
+        /// <returns>The <see cref="Miner"/></returns>
         private static Miner CreateEthminer(DeviceType deviceType)
         {
             if (DeviceType.AMD == deviceType)
@@ -19,6 +27,12 @@ namespace zPoolMiner.Miners
             return null;
         }
 
+        /// <summary>
+        /// The CreateClaymore
+        /// </summary>
+        /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+        /// <param name="secondaryAlgorithmType">The <see cref="AlgorithmType"/></param>
+        /// <returns>The <see cref="Miner"/></returns>
         private static Miner CreateClaymore(AlgorithmType algorithmType, AlgorithmType secondaryAlgorithmType)
         {
             if (AlgorithmType.Equihash == algorithmType)
@@ -36,6 +50,12 @@ namespace zPoolMiner.Miners
             return null;
         }
 
+        /// <summary>
+        /// The CreateExperimental
+        /// </summary>
+        /// <param name="deviceType">The <see cref="DeviceType"/></param>
+        /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+        /// <returns>The <see cref="Miner"/></returns>
         private static Miner CreateExperimental(DeviceType deviceType, AlgorithmType algorithmType)
         {
             if (AlgorithmType.NeoScrypt == algorithmType && DeviceType.NVIDIA == deviceType)
@@ -45,10 +65,21 @@ namespace zPoolMiner.Miners
             return null;
         }
 
+        /// <summary>
+        /// The CreateMiner
+        /// </summary>
+        /// <param name="deviceType">The <see cref="DeviceType"/></param>
+        /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+        /// <param name="minerBaseType">The <see cref="MinerBaseType"/></param>
+        /// <param name="secondaryAlgorithmType">The <see cref="AlgorithmType"/></param>
+        /// <returns>The <see cref="Miner"/></returns>
         public static Miner CreateMiner(DeviceType deviceType, AlgorithmType algorithmType, MinerBaseType minerBaseType, AlgorithmType secondaryAlgorithmType = AlgorithmType.NONE)
         {
             switch (minerBaseType)
             {
+                case MinerBaseType.cpuminer:
+                    return new Cpuminer();
+
                 case MinerBaseType.ccminer:
                     return new Ccminer();
 
@@ -127,23 +158,29 @@ namespace zPoolMiner.Miners
                 case MinerBaseType.Claymore_old:
                     return new ClaymoreCryptoNightMiner(true);
 
-                case MinerBaseType.hsrneoscrypt:
-                    return new Hsrneoscrypt();
-                    
-                case MinerBaseType.hsrneoscrypt_hsr:
-                    return new Hsrneoscrypt_hsr();
-                //case MinerBaseType.mkxminer:
-                   // return new Mkxminer();
+                case MinerBaseType.Palgin_Neoscrypt:
+                    return new Palgin_Neoscrypt();
+
+                case MinerBaseType.Palgin_HSR:
+                    return new Palgin_HSR();
+                    //case MinerBaseType.mkxminer:
+                    // return new Mkxminer();
             }
             return null;
         }
 
         // create miner creates new miners based on device type and algorithm/miner path
+        /// <summary>
+        /// The CreateMiner
+        /// </summary>
+        /// <param name="device">The <see cref="ComputeDevice"/></param>
+        /// <param name="algorithm">The <see cref="Algorithm"/></param>
+        /// <returns>The <see cref="Miner"/></returns>
         public static Miner CreateMiner(ComputeDevice device, Algorithm algorithm)
         {
             if (device != null && algorithm != null)
             {
-                return CreateMiner(device.DeviceType, algorithm.NiceHashID, algorithm.MinerBaseType, algorithm.SecondaryNiceHashID);
+                return CreateMiner(device.DeviceType, algorithm.CryptoMiner937ID, algorithm.MinerBaseType, algorithm.SecondaryCryptoMiner937ID);
             }
             return null;
         }

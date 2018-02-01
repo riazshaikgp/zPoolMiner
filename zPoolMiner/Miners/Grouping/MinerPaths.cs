@@ -1,26 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using zPoolMiner.Configs.ConfigJsonFile;
-using zPoolMiner.Devices;
-using zPoolMiner.Enums;
-
-namespace zPoolMiner.Miners.Grouping
+﻿namespace zPoolMiner.Miners.Grouping
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using zPoolMiner.Configs.ConfigJsonFile;
+    using zPoolMiner.Devices;
+    using zPoolMiner.Enums;
+
+    /// <summary>
+    /// Defines the <see cref="MinerPathPackageFile" />
+    /// </summary>
     internal class MinerPathPackageFile : ConfigFile<MinerPathPackage>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MinerPathPackageFile"/> class.
+        /// </summary>
+        /// <param name="name">The <see cref="string"/></param>
         public MinerPathPackageFile(string name)
             : base(FOLDERS.INTERNALS, String.Format("{0}.json", name), String.Format("{0}_old.json", name))
         {
         }
     }
 
+    /// <summary>
+    /// Defines the <see cref="MinerPathPackage" />
+    /// </summary>
     public class MinerPathPackage
     {
+        /// <summary>
+        /// Defines the Name
+        /// </summary>
         public string Name;
+
+        /// <summary>
+        /// Defines the DeviceType
+        /// </summary>
         public DeviceGroupType DeviceType;
+
+        /// <summary>
+        /// Defines the MinerTypes
+        /// </summary>
         public List<MinerTypePath> MinerTypes;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MinerPathPackage"/> class.
+        /// </summary>
+        /// <param name="type">The <see cref="DeviceGroupType"/></param>
+        /// <param name="paths">The <see cref="List{MinerTypePath}"/></param>
         public MinerPathPackage(DeviceGroupType type, List<MinerTypePath> paths)
         {
             DeviceType = type;
@@ -29,12 +55,31 @@ namespace zPoolMiner.Miners.Grouping
         }
     }
 
+    /// <summary>
+    /// Defines the <see cref="MinerTypePath" />
+    /// </summary>
     public class MinerTypePath
     {
+        /// <summary>
+        /// Defines the Name
+        /// </summary>
         public string Name;
+
+        /// <summary>
+        /// Defines the Type
+        /// </summary>
         public MinerBaseType Type;
+
+        /// <summary>
+        /// Defines the Algorithms
+        /// </summary>
         public List<MinerPath> Algorithms;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MinerTypePath"/> class.
+        /// </summary>
+        /// <param name="type">The <see cref="MinerBaseType"/></param>
+        /// <param name="paths">The <see cref="List{MinerPath}"/></param>
         public MinerTypePath(MinerBaseType type, List<MinerPath> paths)
         {
             Type = type;
@@ -43,12 +88,31 @@ namespace zPoolMiner.Miners.Grouping
         }
     }
 
+    /// <summary>
+    /// Defines the <see cref="MinerPath" />
+    /// </summary>
     public class MinerPath
     {
+        /// <summary>
+        /// Defines the Name
+        /// </summary>
         public string Name;
+
+        /// <summary>
+        /// Defines the Algorithm
+        /// </summary>
         public AlgorithmType Algorithm;
+
+        /// <summary>
+        /// Defines the Path
+        /// </summary>
         public string Path;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MinerPath"/> class.
+        /// </summary>
+        /// <param name="algo">The <see cref="AlgorithmType"/></param>
+        /// <param name="path">The <see cref="string"/></param>
         public MinerPath(AlgorithmType algo, string path)
         {
             Algorithm = algo;
@@ -62,9 +126,15 @@ namespace zPoolMiner.Miners.Grouping
     /// </summary>
     public static class MinerPaths
     {
+        /// <summary>
+        /// Defines the <see cref="Data" />
+        /// </summary>
         public static class Data
         {
             // root binary folder
+            // root binary folder            /// <summary>
+            /// Defines the _bin
+            /// </summary>
             private const string _bin = @"bin";
 
             /// <summary>
@@ -72,22 +142,115 @@ namespace zPoolMiner.Miners.Grouping
             /// </summary>
             public const string ccminer_22 = _bin + @"\ccminer_22\ccminer.exe";
 
+            /// <summary>
+            /// Defines the ccminer_alexis_hsr
+            /// </summary>
             public const string ccminer_alexis_hsr = _bin + @"\ccminer_alexis_hsr\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_alexis78
+            /// </summary>
             public const string ccminer_alexis78 = _bin + @"\ccminer_alexis78\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_cryptonight
+            /// </summary>
             public const string ccminer_cryptonight = _bin + @"\ccminer_cryptonight\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_decred
+            /// </summary>
             public const string ccminer_decred = _bin + @"\ccminer_decred\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_klaust
+            /// </summary>
             public const string ccminer_klaust = _bin + @"\ccminer_klaust\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_klaust818
+            /// </summary>
             public const string ccminer_klaust818 = _bin + @"\ccminer_klaust818\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_nanashi
+            /// </summary>
             public const string ccminer_nanashi = _bin + @"\ccminer_nanashi\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_neoscrypt
+            /// </summary>
             public const string ccminer_neoscrypt = _bin + @"\ccminer_neoscrypt\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_palgin
+            /// </summary>
             public const string ccminer_palgin = _bin + @"\ccminer_palgin\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_polytimos
+            /// </summary>
             public const string ccminer_polytimos = _bin + @"\ccminer_polytimos\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_skunkkrnlx
+            /// </summary>
             public const string ccminer_skunkkrnlx = _bin + @"\ccminer_skunkkrnlx\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_sp
+            /// </summary>
             public const string ccminer_sp = _bin + @"\ccminer_sp\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_tpruvot
+            /// </summary>
             public const string ccminer_tpruvot = _bin + @"\ccminer_tpruvot\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_tpruvot2
+            /// </summary>
             public const string ccminer_tpruvot2 = _bin + @"\ccminer_tpruvot2\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_x11gost
+            /// </summary>
             public const string ccminer_x11gost = _bin + @"\ccminer_x11gost\ccminer.exe";
+
+            /// <summary>
+            /// Defines the ccminer_xevan
+            /// </summary>
             public const string ccminer_xevan = _bin + @"\ccminer_xevan\ccminer.exe";
+
+            /// <summary>
+            /// CPUminers
+            /// </summary>
+            public const string cpuminer_opt_AES = _bin + @"\cpuminer_opt_AES.exe";
+
+            /// <summary>
+            /// Defines the cpuminer_opt_AVX
+            /// </summary>
+            public const string cpuminer_opt_AVX = _bin + @"\cpuminer_opt_AVX.exe";
+
+            /// <summary>
+            /// Defines the cpuminer_opt_AVX2
+            /// </summary>
+            public const string cpuminer_opt_AVX2 = _bin + @"\cpuminer_opt_AVX2.exe";
+
+            /// <summary>
+            /// Defines the cpuminer_opt_AVX2_AES
+            /// </summary>
+            public const string cpuminer_opt_AVX2_AES = _bin + @"\cpuminer_opt_AVX2_AES.exe";
+
+            /// <summary>
+            /// Defines the cpuminer_opt_AVX_AES
+            /// </summary>
+            public const string cpuminer_opt_AVX_AES = _bin + @"\cpuminer_opt_AVX_AES.exe";
+
+            /// <summary>
+            /// Defines the cpuminer_opt_SSE2
+            /// </summary>
+            public const string cpuminer_opt_SSE2 = _bin + @"\cpuminer_opt_SSE2.exe";
 
             /// <summary>
             /// ethminers
@@ -98,34 +261,136 @@ namespace zPoolMiner.Miners.Grouping
             /// sgminers
             /// </summary>
             public const string sgminer_5_6_0_general = _bin + @"\sgminer-5-6-0-general\sgminer.exe";
+
+            /// <summary>
+            /// Defines the sgminer_gm
+            /// </summary>
             public const string sgminer_gm = _bin + @"\sgminer-gm\sgminer.exe";
+
+            /// <summary>
+            /// Defines the sgminer_HSR
+            /// </summary>
             public const string sgminer_HSR = _bin + @"\sgminer-HSR\sgminer.exe";
+
+            /// <summary>
+            /// Defines the sgminer_Phi
+            /// </summary>
             public const string sgminer_Phi = _bin + @"\sgminer-Phi\sgminer.exe";
+
+            /// <summary>
+            /// Defines the sgminer_Bitcore
+            /// </summary>
             public const string sgminer_Bitcore = _bin + @"\sgminer-Bitcore\sgminer.exe";
+
+            /// <summary>
+            /// Defines the sgminer_Skein
+            /// </summary>
             public const string sgminer_Skein = _bin + @"\sgminer-Skein\sgminer.exe";
+
+            /// <summary>
+            /// Defines the sgminer_Tribus
+            /// </summary>
             public const string sgminer_Tribus = _bin + @"\sgminer-Tribus\sgminer.exe";
+
+            /// <summary>
+            /// Defines the sgminer_Xevan
+            /// </summary>
             public const string sgminer_Xevan = _bin + @"\sgminer-Xevan\sgminer.exe";
+
+            /// <summary>
+            /// Defines the glg
+            /// </summary>
             public const string glg = _bin + @"\glg\gatelessgate.exe";
+
+            /// <summary>
+            /// Defines the nheqminer
+            /// </summary>
             public const string nheqminer = _bin + @"\nheqminer_v0.4b\nheqminer.exe";
+
+            /// <summary>
+            /// Defines the excavator
+            /// </summary>
             public const string excavator = _bin + @"\excavator\excavator.exe";
+
+            /// <summary>
+            /// Defines the XmrStackCPUMiner
+            /// </summary>
             public const string XmrStackCPUMiner = _bin + @"\xmr-stak-cpu\xmr-stak-cpu.exe";
+
+            /// <summary>
+            /// Defines the XmrStakAMD
+            /// </summary>
             public const string XmrStakAMD = _bin + @"\xmr-stak-amd\xmr-stak-amd.exe";
+
+            /// <summary>
+            /// Defines the Xmrig
+            /// </summary>
             public const string Xmrig = _bin + @"\xmrig\xmrig.exe";
+
+            /// <summary>
+            /// Defines the NONE
+            /// </summary>
             public const string NONE = "";
 
             // root binary folder
+            // root binary folder            /// <summary>
+            /// Defines the _bin_3rdparty
+            /// </summary>
             private const string _bin_3rdparty = @"bin_3rdparty";
 
+            /// <summary>
+            /// Defines the ClaymoreZcashMiner
+            /// </summary>
             public const string ClaymoreZcashMiner = _bin_3rdparty + @"\claymore_zcash\ZecMiner64.exe";
+
+            /// <summary>
+            /// Defines the ClaymoreCryptoNightMiner
+            /// </summary>
             public const string ClaymoreCryptoNightMiner = _bin_3rdparty + @"\claymore_cryptonight\NsGpuCNMiner.exe";
+
+            /// <summary>
+            /// Defines the ClaymoreCryptoNightMiner_old
+            /// </summary>
             public const string ClaymoreCryptoNightMiner_old = _bin_3rdparty + @"\claymore_cryptonight_old\NsGpuCNMiner.exe";
+
+            /// <summary>
+            /// Defines the OptiminerZcashMiner
+            /// </summary>
             public const string OptiminerZcashMiner = _bin_3rdparty + @"\optiminer_zcash_win\Optiminer.exe";
+
+            /// <summary>
+            /// Defines the ClaymoreDual
+            /// </summary>
             public const string ClaymoreDual = _bin_3rdparty + @"\claymore_dual\EthDcrMiner64.exe";
+
+            /// <summary>
+            /// Defines the EWBF
+            /// </summary>
             public const string EWBF = _bin_3rdparty + @"\ewbf\miner.exe";
+
+            /// <summary>
+            /// Defines the DSTM
+            /// </summary>
             public const string DSTM = _bin_3rdparty + @"\dstm\zm.exe";
-            public const string hsrneoscrypt = _bin_3rdparty + @"\hsrminer_neoscrypt\hsrminer_neoscrypt.exe";
-            public const string hsrneoscrypt_hsr = _bin_3rdparty + @"\hsrminer_neoscrypt\hsrminer_hsr.exe";
+
+            /// <summary>
+            /// Defines the Palgin_Neoscrypt
+            /// </summary>
+            public const string Palgin_Neoscrypt = _bin_3rdparty + @"\hsrminer_neoscrypt\hsrminer_neoscrypt.exe";
+
+            /// <summary>
+            /// Defines the Palgin_HSR
+            /// </summary>
+            public const string Palgin_HSR = _bin_3rdparty + @"\hsrminer_neoscrypt\hsrminer_hsr.exe";
+
+            /// <summary>
+            /// Defines the prospector
+            /// </summary>
             public const string prospector = _bin_3rdparty + @"\prospector\prospector.exe";
+
+            /// <summary>
+            /// Defines the mkxminer
+            /// </summary>
             public const string mkxminer = _bin_3rdparty + @"\mkxminer\mkxminer.exe";
         }
 
@@ -133,9 +398,16 @@ namespace zPoolMiner.Miners.Grouping
         ////////////////////////////////////////////
         // Pure functions
         //public static bool IsMinerAlgorithmAvaliable(List<Algorithm> algos, MinerBaseType minerBaseType, AlgorithmType algorithmType) {
-        //    return algos.FindIndex((a) => a.MinerBaseType == minerBaseType && a.NiceHashID == algorithmType) > -1;
+        //    return algos.FindIndex((a) => a.MinerBaseType == minerBaseType && a.CryptoMiner937ID == algorithmType) > -1;
         //}
-
+        /// <summary>
+        /// The GetPathFor
+        /// </summary>
+        /// <param name="minerBaseType">The <see cref="MinerBaseType"/></param>
+        /// <param name="algoType">The <see cref="AlgorithmType"/></param>
+        /// <param name="devGroupType">The <see cref="DeviceGroupType"/></param>
+        /// <param name="def">The <see cref="bool"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public static string GetPathFor(MinerBaseType minerBaseType, AlgorithmType algoType, DeviceGroupType devGroupType, bool def = false)
         {
             if (!def & configurableMiners.Contains(minerBaseType))
@@ -158,6 +430,9 @@ namespace zPoolMiner.Miners.Grouping
             }
             switch (minerBaseType)
             {
+                case MinerBaseType.cpuminer:
+                    return Data.cpuminer_opt_AVX_AES;
+
                 case MinerBaseType.ccminer:
                     return NVIDIA_GROUPS.Ccminer_path(algoType, devGroupType);
 
@@ -236,17 +511,23 @@ namespace zPoolMiner.Miners.Grouping
                 case MinerBaseType.Claymore_old:
                     return Data.ClaymoreCryptoNightMiner_old;
 
-                case MinerBaseType.hsrneoscrypt:
-                    return NVIDIA_GROUPS.Hsrneoscrypt_path(algoType, devGroupType);
-                    
-                case MinerBaseType.hsrneoscrypt_hsr:
-                    return NVIDIA_GROUPS.hsrneoscrypt_hsr_path(algoType, devGroupType);
-                //case MinerBaseType.mkxminer:
+                case MinerBaseType.Palgin_Neoscrypt:
+                    return NVIDIA_GROUPS.Palgin_Neoscrypt_path(algoType, devGroupType);
+
+                case MinerBaseType.Palgin_HSR:
+                    return NVIDIA_GROUPS.Palgin_HSR_path(algoType, devGroupType);
+                    //case MinerBaseType.mkxminer:
                     //return Data.mkxminer;
             }
             return Data.NONE;
         }
 
+        /// <summary>
+        /// The GetPathFor
+        /// </summary>
+        /// <param name="computeDevice">The <see cref="ComputeDevice"/></param>
+        /// <param name="algorithm">The <see cref="Algorithm"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public static string GetPathFor(ComputeDevice computeDevice, Algorithm algorithm /*, Options: MinerPathsConfig*/)
         {
             if (computeDevice == null || algorithm == null)
@@ -256,11 +537,16 @@ namespace zPoolMiner.Miners.Grouping
 
             return GetPathFor(
                 algorithm.MinerBaseType,
-                algorithm.NiceHashID,
+                algorithm.CryptoMiner937ID,
                 computeDevice.DeviceGroupType
                 );
         }
 
+        /// <summary>
+        /// The IsValidMinerPath
+        /// </summary>
+        /// <param name="minerPath">The <see cref="string"/></param>
+        /// <returns>The <see cref="bool"/></returns>
         public static bool IsValidMinerPath(string minerPath)
         {
             // TODO make a list of valid miner paths and check that instead
@@ -270,7 +556,12 @@ namespace zPoolMiner.Miners.Grouping
         /**
          * InitAlgorithmsMinerPaths gets and sets miner paths
          */
-
+        /// <summary>
+        /// The GetAndInitAlgorithmsMinerPaths
+        /// </summary>
+        /// <param name="algos">The <see cref="List{Algorithm}"/></param>
+        /// <param name="computeDevice">The <see cref="ComputeDevice"/></param>
+        /// <returns>The <see cref="List{Algorithm}"/></returns>
         public static List<Algorithm> GetAndInitAlgorithmsMinerPaths(List<Algorithm> algos, ComputeDevice computeDevice/*, Options: MinerPathsConfig*/)
         {
             var retAlgos = algos.FindAll((a) => a != null).ConvertAll((a) =>
@@ -285,8 +576,16 @@ namespace zPoolMiner.Miners.Grouping
         // NEW END
 
         ////// private stuff from here on
+        /// <summary>
+        /// Defines the <see cref="NVIDIA_GROUPS" />
+        /// </summary>
         private static class NVIDIA_GROUPS
         {
+            /// <summary>
+            /// The Ccminer_sm21_or_sm3x
+            /// </summary>
+            /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+            /// <returns>The <see cref="string"/></returns>
             public static string Ccminer_sm21_or_sm3x(AlgorithmType algorithmType)
             {
                 if (AlgorithmType.Decred == algorithmType)
@@ -299,6 +598,12 @@ namespace zPoolMiner.Miners.Grouping
                 }
                 return Data.ccminer_tpruvot;
             }
+
+            /// <summary>
+            /// The Ccminer_sm5x
+            /// </summary>
+            /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+            /// <returns>The <see cref="string"/></returns>
             public static string Ccminer_sm5x(AlgorithmType algorithmType)
             {
                 if (AlgorithmType.Decred == algorithmType)
@@ -374,6 +679,12 @@ namespace zPoolMiner.Miners.Grouping
 
                 return Data.ccminer_sp;
             }
+
+            /// <summary>
+            /// The Ccminer_sm6x
+            /// </summary>
+            /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+            /// <returns>The <see cref="string"/></returns>
             public static string Ccminer_sm6x(AlgorithmType algorithmType)
             {
                 if (AlgorithmType.Decred == algorithmType)
@@ -450,7 +761,13 @@ namespace zPoolMiner.Miners.Grouping
                 return Data.ccminer_sp;
             }
 
-            public static string Hsrneoscrypt_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
+            /// <summary>
+            /// The Palgin_Neoscrypt_path
+            /// </summary>
+            /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+            /// <param name="nvidiaGroup">The <see cref="DeviceGroupType"/></param>
+            /// <returns>The <see cref="string"/></returns>
+            public static string Palgin_Neoscrypt_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
             {
                 // sm21 and sm3x have same settings                
                 // CN exception
@@ -464,33 +781,46 @@ namespace zPoolMiner.Miners.Grouping
                 }
                 if (nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
                 {
-                    return Data.hsrneoscrypt;
-                }
-                
-                // TODO wrong case?
-                return Data.NONE; // should not happen
-            }
-            
-            public static string hsrneoscrypt_hsr_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
-            {
-                // sm21 and sm3x have same settings                
-                // CN exception
-                if (nvidiaGroup == DeviceGroupType.NVIDIA_2_1 || nvidiaGroup == DeviceGroupType.NVIDIA_3_x)
-                {
-                    return Data.NONE;
-                }
-                if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x)
-                {
-                    return Data.NONE;
-                }
-                if (nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
-                {
-                    return Data.hsrneoscrypt_hsr;
+                    return Data.Palgin_Neoscrypt;
                 }
 
                 // TODO wrong case?
                 return Data.NONE; // should not happen
             }
+
+            /// <summary>
+            /// The Palgin_HSR_path
+            /// </summary>
+            /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+            /// <param name="nvidiaGroup">The <see cref="DeviceGroupType"/></param>
+            /// <returns>The <see cref="string"/></returns>
+            public static string Palgin_HSR_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
+            {
+                // sm21 and sm3x have same settings                
+                // CN exception
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_2_1 || nvidiaGroup == DeviceGroupType.NVIDIA_3_x)
+                {
+                    return Data.NONE;
+                }
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x)
+                {
+                    return Data.NONE;
+                }
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
+                {
+                    return Data.Palgin_HSR;
+                }
+
+                // TODO wrong case?
+                return Data.NONE; // should not happen
+            }
+
+            /// <summary>
+            /// The Ccminer_path
+            /// </summary>
+            /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+            /// <param name="nvidiaGroup">The <see cref="DeviceGroupType"/></param>
+            /// <returns>The <see cref="string"/></returns>
             public static string Ccminer_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
             {
                 // sm21 and sm3x have same settings
@@ -499,7 +829,7 @@ namespace zPoolMiner.Miners.Grouping
                     return NVIDIA_GROUPS.Ccminer_sm21_or_sm3x(algorithmType);
                 }
                 // CN exception
-                if (nvidiaGroup == DeviceGroupType.NVIDIA_6_x && algorithmType == AlgorithmType.CryptoNight  || AlgorithmType.Tribus == algorithmType)
+                if (nvidiaGroup == DeviceGroupType.NVIDIA_6_x && algorithmType == AlgorithmType.CryptoNight || AlgorithmType.Tribus == algorithmType)
                 {
                     return Data.ccminer_tpruvot;
                 }
@@ -516,17 +846,23 @@ namespace zPoolMiner.Miners.Grouping
                 return Data.NONE; // should not happen
             }
 
-                // untested might not need anymore
+            // untested might not need anymore
+            /// <summary>
+            /// The Ccminer_unstable_path
+            /// </summary>
+            /// <param name="algorithmType">The <see cref="AlgorithmType"/></param>
+            /// <param name="nvidiaGroup">The <see cref="DeviceGroupType"/></param>
+            /// <returns>The <see cref="string"/></returns>
             public static string Ccminer_unstable_path(AlgorithmType algorithmType, DeviceGroupType nvidiaGroup)
             {
                 // sm5x and sm6x have same settings
                 if (nvidiaGroup == DeviceGroupType.NVIDIA_5_x || nvidiaGroup == DeviceGroupType.NVIDIA_6_x)
                 {
 
-                   if (AlgorithmType.X11Gost == algorithmType || AlgorithmType.Nist5 == algorithmType || AlgorithmType.X17 == algorithmType || AlgorithmType.Nist5 == algorithmType)
- 
-                   {
-                     return Data.ccminer_x11gost;
+                    if (AlgorithmType.X11Gost == algorithmType || AlgorithmType.Nist5 == algorithmType || AlgorithmType.X17 == algorithmType || AlgorithmType.Nist5 == algorithmType)
+
+                    {
+                        return Data.ccminer_x11gost;
                     }
                 }
                 // TODO wrong case?
@@ -534,8 +870,16 @@ namespace zPoolMiner.Miners.Grouping
             }
         }
 
+        /// <summary>
+        /// Defines the <see cref="AMD_GROUP" />
+        /// </summary>
         private static class AMD_GROUP
         {
+            /// <summary>
+            /// The Sgminer_path
+            /// </summary>
+            /// <param name="type">The <see cref="AlgorithmType"/></param>
+            /// <returns>The <see cref="string"/></returns>
             public static string Sgminer_path(AlgorithmType type)
             {
                 if (AlgorithmType.CryptoNight == type || AlgorithmType.DaggerHashimoto == type)
@@ -558,7 +902,7 @@ namespace zPoolMiner.Miners.Grouping
                 {
                     return Data.sgminer_Phi;
                 }
-                if (AlgorithmType.Tribus == type || AlgorithmType.Veltor == type)
+                if (AlgorithmType.Tribus == type)
                 {
                     return Data.sgminer_Tribus;
                 }
@@ -570,16 +914,26 @@ namespace zPoolMiner.Miners.Grouping
                 return Data.sgminer_5_6_0_general;
             }
 
+            /// <summary>
+            /// The Glg_path
+            /// </summary>
+            /// <param name="type">The <see cref="AlgorithmType"/></param>
+            /// <returns>The <see cref="string"/></returns>
             public static string Glg_path(AlgorithmType type)
             {
                 // AlgorithmType.Pascal == type || AlgorithmType.DaggerHashimoto == type || AlgorithmType.Decred == type || AlgorithmType.Lbry == type || AlgorithmType.X11Gost == type || AlgorithmType.DaggerHashimoto == type
-                if (AlgorithmType.CryptoNight == type || AlgorithmType.Equihash == type || AlgorithmType.NeoScrypt == type || AlgorithmType.Lyra2REv2 == type  || AlgorithmType.Myriad_groestl == type  || AlgorithmType.Keccak == type)
+                if (AlgorithmType.CryptoNight == type || AlgorithmType.Equihash == type || AlgorithmType.NeoScrypt == type || AlgorithmType.Lyra2REv2 == type || AlgorithmType.Myriad_groestl == type || AlgorithmType.Keccak == type)
                 {
                     return Data.glg;
                 }
                 return Data.NONE;
             }
 
+            /// <summary>
+            /// The ClaymorePath
+            /// </summary>
+            /// <param name="type">The <see cref="AlgorithmType"/></param>
+            /// <returns>The <see cref="string"/></returns>
             public static string ClaymorePath(AlgorithmType type)
             {
                 if (AlgorithmType.Equihash == type)
@@ -598,9 +952,43 @@ namespace zPoolMiner.Miners.Grouping
             }
         }
 
+        /// <summary>
+        /// Defines the <see cref="CPU_GROUP" />
+        /// </summary>
+        internal static class CPU_GROUP
+        {
+            /// <summary>
+            /// The cpu_miner_opt
+            /// </summary>
+            /// <param name="type">The <see cref="CPUExtensionType"/></param>
+            /// <returns>The <see cref="string"/></returns>
+            public static string cpu_miner_opt(CPUExtensionType type)
+            {
+                // algorithmType is not needed ATM
+                // algorithmType: AlgorithmType
+                if (CPUExtensionType.AVX2_AES == type) { return Data.cpuminer_opt_AVX2_AES; }
+                if (CPUExtensionType.AVX2 == type) { return Data.cpuminer_opt_AVX2; }
+                if (CPUExtensionType.AVX_AES == type) { return Data.cpuminer_opt_AVX_AES; }
+                if (CPUExtensionType.AVX == type) { return Data.cpuminer_opt_AVX; }
+                if (CPUExtensionType.AES == type) { return Data.cpuminer_opt_AES; }
+                if (CPUExtensionType.SSE2 == type) { return Data.cpuminer_opt_SSE2; }
+
+                return Data.NONE; // should not happen
+            }
+        }
+
         // unstable miners, NVIDIA for now
+        /// <summary>
+        /// Defines the <see cref="EXPERIMENTAL" />
+        /// </summary>
         private static class EXPERIMENTAL
         {
+            /// <summary>
+            /// The GetPath
+            /// </summary>
+            /// <param name="algoType">The <see cref="AlgorithmType"/></param>
+            /// <param name="devGroupType">The <see cref="DeviceGroupType"/></param>
+            /// <returns>The <see cref="string"/></returns>
             public static string GetPath(AlgorithmType algoType, DeviceGroupType devGroupType)
             {
                 if (devGroupType == DeviceGroupType.NVIDIA_6_x)
@@ -611,13 +999,22 @@ namespace zPoolMiner.Miners.Grouping
             }
         }
 
+        /// <summary>
+        /// Defines the minerPathPackages
+        /// </summary>
         private static List<MinerPathPackage> minerPathPackages = new List<MinerPathPackage>();
 
+        /// <summary>
+        /// Defines the configurableMiners
+        /// </summary>
         private static readonly List<MinerBaseType> configurableMiners = new List<MinerBaseType> {
             MinerBaseType.ccminer,
             MinerBaseType.sgminer
         };
 
+        /// <summary>
+        /// The InitializePackages
+        /// </summary>
         public static void InitializePackages()
         {
             var defaults = new List<MinerPathPackage>();
@@ -632,7 +1029,7 @@ namespace zPoolMiner.Miners.Grouping
                         var minerPaths = new List<MinerPath>();
                         foreach (var algo in package[type])
                         {
-                            minerPaths.Add(new MinerPath(algo.NiceHashID, GetPathFor(type, algo.NiceHashID, i, true)));
+                            minerPaths.Add(new MinerPath(algo.CryptoMiner937ID, GetPathFor(type, algo.CryptoMiner937ID, i, true)));
                         }
                         minerTypePaths.Add(new MinerTypePath(type, minerPaths));
                     }

@@ -16,6 +16,7 @@ namespace zPoolMiner
 {
     internal static class Program
     {
+        public static readonly log4net.ILog log = log4net.LogManager.GetLogger("zPoolMiner");
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -62,6 +63,10 @@ namespace zPoolMiner
             if (startProgram)
             {
                 if (ConfigManager.GeneralConfig.LogToFile)
+                if (ConfigManager.GeneralConfig.DebugConsole)
+                {
+                    Helpers.AllocConsole();
+                }
                 {
                     Logger.ConfigureWithFile();
                 }
@@ -77,11 +82,11 @@ namespace zPoolMiner
                 // #2 then parse args
                 var commandLineArgs = new CommandLineParser(argv);
 
-                Helpers.ConsolePrint("NICEHASH", "Starting up zPoolMiner v" + Application.ProductVersion);
+                log.Info("Starting up zPoolMiner v" + Application.ProductVersion);
                 bool tosChecked = ConfigManager.GeneralConfig.agreedWithTOS == Globals.CURRENT_TOS_VER;
                 if (!tosChecked || !ConfigManager.GeneralConfigIsFileExist() && !commandLineArgs.IsLang)
                 {
-                    Helpers.ConsolePrint("NICEHASH", "No config file found. Running zPool Miner for the first time. Choosing a default language.");
+                    log.Warn("No config file found. Running zPool Miner for the first time. Choosing a default language.");
                     Application.Run(new Form_ChooseLanguage());
                 }
 
@@ -90,7 +95,7 @@ namespace zPoolMiner
 
                 if (commandLineArgs.IsLang)
                 {
-                    Helpers.ConsolePrint("NICEHASH", "Language is overwritten by command line parameter (-lang).");
+                    log.Warn("Language is overwritten by command line parameter (-lang).");
                     International.Initialize(commandLineArgs.LangValue);
                     ConfigManager.GeneralConfig.Language = commandLineArgs.LangValue;
                 }
@@ -102,6 +107,8 @@ namespace zPoolMiner
                     if (ConfigManager.GeneralConfig.agreedWithTOS == Globals.CURRENT_TOS_VER)
                     {
                         Application.Run(new Form_Main());
+                        Console.WriteLine("Press to exit");
+                        Console.ReadLine();
                     }
                 }
                 else

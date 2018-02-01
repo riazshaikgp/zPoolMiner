@@ -15,8 +15,8 @@ namespace zPoolMiner.Forms.Components
 
         private class DefaultDevicesColorSeter : IListItemCheckColorSetter
         {
-            private static Color ENABLED_COLOR = Color.White;
-            private static Color DISABLED_COLOR = Color.DarkGray;
+            private static Color ENABLED_COLOR = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            private static Color DISABLED_COLOR = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
 
             public void LviSetColor(ListViewItem lvi)
             {
@@ -136,11 +136,20 @@ namespace zPoolMiner.Forms.Components
             // set devices
             foreach (var computeDevice in computeDevices)
             {
+                String txt;
+                if (computeDevice.DeviceType.Equals(Enums.DeviceType.CPU))
+                {
+                    txt = "Temperature: " + computeDevice.Temp + "°C  /  " + "Load: " + computeDevice.Load.ToString("0.00") + "%";
+                }
+                else
+                {
+                    txt = "Temperature: " + computeDevice.Temp + "°C" + "  /  Fan Speed: " + computeDevice.FanSpeed + "  rpm  /  Load: " + computeDevice.Load + "%";
+                }
                 ListViewItem lvi = new ListViewItem
                 {
                     //lvi.SubItems.Add(computeDevice.Name);
                     Checked = computeDevice.Enabled,
-                    Text = "Temperature: " + computeDevice.Temp + "°C" + "  /  Fan Speed: " + computeDevice.FanSpeed + "  rpm  /  Load: " + computeDevice.Load + "%",
+                    Text = txt,
                     Tag = computeDevice
                 };
                 listViewDevices.Items.Add(lvi);

@@ -63,6 +63,16 @@ namespace zPoolMiner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap black_paper {
+            get {
+                object obj = ResourceManager.GetObject("black-paper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap info_black_18 {
             get {
                 object obj = ResourceManager.GetObject("info_black_18", resourceCulture);

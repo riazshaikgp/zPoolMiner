@@ -1,20 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using zPoolMiner.Configs.ConfigJsonFile;
-using zPoolMiner.Enums;
-
-namespace zPoolMiner.Miners.Parsing
+﻿namespace zPoolMiner.Miners.Parsing
 {
+    using System;
+    using System.Collections.Generic;
+    using zPoolMiner.Configs.ConfigJsonFile;
+    using zPoolMiner.Enums;
+
+    /// <summary>
+    /// Defines the <see cref="MinerOptionPackageFile" />
+    /// </summary>
     internal class MinerOptionPackageFile : ConfigFile<MinerOptionPackage>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MinerOptionPackageFile"/> class.
+        /// </summary>
+        /// <param name="name">The <see cref="string"/></param>
         public MinerOptionPackageFile(string name)
             : base(FOLDERS.INTERNALS, String.Format("{0}.json", name), String.Format("{0}.json", name))
         {
         }
     }
 
+    /// <summary>
+    /// Defines the <see cref="ExtraLaunchParameters" />
+    /// </summary>
     public static class ExtraLaunchParameters
     {
+        /// <summary>
+        /// Defines the DEFAULTS
+        /// </summary>
         private static readonly List<MinerOptionPackage> DEFAULTS = new List<MinerOptionPackage>() {
             new MinerOptionPackage(
                 MinerType.ccminer,
@@ -24,7 +37,7 @@ namespace zPoolMiner.Miners.Parsing
                 new List<MinerOption>()
             ),
                new MinerOptionPackage(
-                 MinerType.hsrneoscrypt,
+                 MinerType.Palgin_Neoscrypt,
                  new List<MinerOption>() {
                      new MinerOption("Intensity", "-i", "--intensity=", "0", MinerOptionFlagType.MultiParam, ",")
                  },
@@ -341,8 +354,14 @@ namespace zPoolMiner.Miners.Parsing
                 new List<MinerOption>())
         };
 
+        /// <summary>
+        /// Defines the MinerOptionPackages
+        /// </summary>
         private static List<MinerOptionPackage> MinerOptionPackages = new List<MinerOptionPackage>();
 
+        /// <summary>
+        /// The InitializePackages
+        /// </summary>
         public static void InitializePackages()
         {
             foreach (var pack in DEFAULTS)
@@ -381,6 +400,11 @@ namespace zPoolMiner.Miners.Parsing
             }
         }
 
+        /// <summary>
+        /// The GetMinerOptionPackageForMinerType
+        /// </summary>
+        /// <param name="type">The <see cref="MinerType"/></param>
+        /// <returns>The <see cref="MinerOptionPackage"/></returns>
         public static MinerOptionPackage GetMinerOptionPackageForMinerType(MinerType type)
         {
             int index = MinerOptionPackages.FindIndex((p) => p.Type == type);

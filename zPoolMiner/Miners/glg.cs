@@ -1,28 +1,34 @@
-﻿using System;
- using System.IO;
- using System.Collections.Generic;
- using System.Text;
- using System.Diagnostics;
- using System.Globalization;
- using System.Net;
- using System.Net.Sockets;
- using System.Windows.Forms;
- using System.Management;
- using zPoolMiner.Configs;
- using zPoolMiner.Devices;
- using zPoolMiner.Enums;
- using zPoolMiner.Miners.Grouping;
- using zPoolMiner.Miners.Parsing;
- using System.Threading;
- using System.Threading.Tasks;
-
-namespace zPoolMiner.Miners
+﻿namespace zPoolMiner.Miners
 {
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using zPoolMiner.Configs;
+    using zPoolMiner.Devices;
+    using zPoolMiner.Enums;
+    using zPoolMiner.Miners.Grouping;
+    using zPoolMiner.Miners.Parsing;
+
+    /// <summary>
+    /// Defines the <see cref="Glg" />
+    /// </summary>
     internal class Glg : Miner
     {
+        /// <summary>
+        /// Defines the GPUPlatformNumber
+        /// </summary>
         private readonly int GPUPlatformNumber;
+
+        /// <summary>
+        /// Defines the _benchmarkTimer
+        /// </summary>
         private Stopwatch _benchmarkTimer = new Stopwatch();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Glg"/> class.
+        /// </summary>
         public Glg()
             : base("glg_AMD")
         {
@@ -31,6 +37,9 @@ namespace zPoolMiner.Miners
         }
 
         // use ONLY for exiting a benchmark
+        /// <summary>
+        /// The Killglg
+        /// </summary>
         public void Killglg()
         {
             foreach (Process process in Process.GetProcessesByName("gatelessgate"))
@@ -39,6 +48,9 @@ namespace zPoolMiner.Miners
             }
         }
 
+        /// <summary>
+        /// The EndBenchmarkProcces
+        /// </summary>
         public override void EndBenchmarkProcces()
         {
             if (BenchmarkProcessStatus != BenchmarkProcessStatus.Killing && BenchmarkProcessStatus != BenchmarkProcessStatus.DoneKilling)
@@ -59,16 +71,30 @@ namespace zPoolMiner.Miners
             }
         }
 
+        /// <summary>
+        /// The GET_MAX_CooldownTimeInMilliseconds
+        /// </summary>
+        /// <returns>The <see cref="int"/></returns>
         protected override int GET_MAX_CooldownTimeInMilliseconds()
         {
-            return 90 * 1000; // 1.5 minute max, whole waiting time 75seconds
+            return 90 * 1000 * 2; // 3 minute max, whole waiting time 75seconds
         }
 
+        /// <summary>
+        /// The _Stop
+        /// </summary>
+        /// <param name="willswitch">The <see cref="MinerStopType"/></param>
         protected override void _Stop(MinerStopType willswitch)
         {
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         }
 
+        /// <summary>
+        /// The Start
+        /// </summary>
+        /// <param name="url">The <see cref="string"/></param>
+        /// <param name="btcAdress">The <see cref="string"/></param>
+        /// <param name="worker">The <see cref="string"/></param>
         public override void Start(string url, string btcAdress, string worker)
         {
             if (!IsInit)
@@ -97,14 +123,17 @@ namespace zPoolMiner.Miners
         }
 
         // new decoupled benchmarking routines
-
-        #region Decoupled benchmarking routines
-
+        /// <summary>
+        /// The BenchmarkCreateCommandLine
+        /// </summary>
+        /// <param name="algorithm">The <see cref="Algorithm"/></param>
+        /// <param name="time">The <see cref="int"/></param>
+        /// <returns>The <see cref="string"/></returns>
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             string CommandLine;
 
-            string url = Globals.GetLocationURL(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
+            string url = Globals.GetLocationURL(algorithm.CryptoMiner937ID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
 
             // demo for benchmark
             string username = Globals.DemoUser;
@@ -136,6 +165,11 @@ namespace zPoolMiner.Miners
             return CommandLine;
         }
 
+        /// <summary>
+        /// The BenchmarkParseLine
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
+        /// <returns>The <see cref="bool"/></returns>
         protected override bool BenchmarkParseLine(string outdata)
         {
             //  Helpers.ConsolePrint("BENCHMARK", out);
@@ -145,7 +179,7 @@ namespace zPoolMiner.Miners
             {
                 return true;
             }
-            if (outdata.Contains("(avg)") && outdata.Contains("h/s") && BenchmarkAlgorithm.NiceHashID != AlgorithmType.DaggerHashimoto)
+            if (outdata.Contains("(avg)") && outdata.Contains("h/s") && BenchmarkAlgorithm.CryptoMiner937ID != AlgorithmType.DaggerHashimoto)
             {
                 int i = outdata.IndexOf("(avg):");
                 int k = outdata.IndexOf("h/s");
@@ -174,12 +208,15 @@ namespace zPoolMiner.Miners
             return false;
         }
 
+        /// <summary>
+        /// The BenchmarkThreadRoutineStartSettup
+        /// </summary>
         protected override void BenchmarkThreadRoutineStartSettup()
         {
             // sgminer extra settings
-            AlgorithmType NHDataIndex = BenchmarkAlgorithm.NiceHashID;
+            AlgorithmType NHDataIndex = BenchmarkAlgorithm.CryptoMiner937ID;
 
-            if (Globals.NiceHashData == null)
+            if (Globals.CryptoMiner937Data == null)
             {
                 Helpers.ConsolePrint("BENCHMARK", "Skipping gatelessgate benchmark because there is no internet " +
                     "connection. Gatelessgate needs internet connection to do benchmarking.");
@@ -187,7 +224,7 @@ namespace zPoolMiner.Miners
                 throw new Exception("No internet connection");
             }
 
-            if (Globals.NiceHashData[NHDataIndex].paying == 0)
+            if (Globals.CryptoMiner937Data[NHDataIndex].paying == 0)
             {
                 Helpers.ConsolePrint("BENCHMARK", "Skipping gatelessgate benchmark because there is no work on Nicehash.com " +
                     "[algo: " + BenchmarkAlgorithm.AlgorithmName + "(" + NHDataIndex + ")]");
@@ -197,10 +234,12 @@ namespace zPoolMiner.Miners
 
             _benchmarkTimer.Reset();
             _benchmarkTimer.Start();
-            // call base, read only outpus
-            //BenchmarkHandle.BeginOutputReadLine();
         }
 
+        /// <summary>
+        /// The BenchmarkOutputErrorDataReceivedImpl
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
         {
             if (_benchmarkTimer.Elapsed.TotalSeconds >= BenchmarkTimeInSeconds)
@@ -221,6 +260,10 @@ namespace zPoolMiner.Miners
             }
         }
 
+        /// <summary>
+        /// The GetFinalBenchmarkString
+        /// </summary>
+        /// <returns>The <see cref="string"/></returns>
         protected override string GetFinalBenchmarkString()
         {
             if (BenchmarkAlgorithm.BenchmarkSpeed <= 0)
@@ -231,6 +274,10 @@ namespace zPoolMiner.Miners
             return base.GetFinalBenchmarkString();
         }
 
+        /// <summary>
+        /// The BenchmarkThreadRoutine
+        /// </summary>
+        /// <param name="CommandLine">The <see cref="object"/></param>
         protected override void BenchmarkThreadRoutine(object CommandLine)
         {
             Thread.Sleep(ConfigManager.GeneralConfig.MinerRestartDelayMS * 3); // increase wait for sgminer
@@ -302,9 +349,11 @@ namespace zPoolMiner.Miners
             }
         }
 
-        #endregion Decoupled benchmarking routines
-
         // TODO _currentMinerReadStatus
+        /// <summary>
+        /// The GetSummaryAsync
+        /// </summary>
+        /// <returns>The <see cref="Task{APIData}"/></returns>
         public override async Task<APIData> GetSummaryAsync()
         {
             string resp;

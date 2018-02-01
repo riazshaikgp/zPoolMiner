@@ -1,13 +1,23 @@
-﻿using System;
-using zPoolMiner.Configs;
-using zPoolMiner.Enums;
-
-namespace zPoolMiner.Miners
+﻿namespace zPoolMiner.Miners
 {
+    using System;
+    using zPoolMiner.Configs;
+    using zPoolMiner.Enums;
+
+    /// <summary>
+    /// Defines the <see cref="ClaymoreDual" />
+    /// </summary>
     public class ClaymoreDual : ClaymoreBaseMiner
     {
+        /// <summary>
+        /// Defines the _LOOK_FOR_START
+        /// </summary>
         private const string _LOOK_FOR_START = "ETH - Total Speed:";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClaymoreDual"/> class.
+        /// </summary>
+        /// <param name="secondaryAlgorithmType">The <see cref="AlgorithmType"/></param>
         public ClaymoreDual(AlgorithmType secondaryAlgorithmType)
             : base("ClaymoreDual", _LOOK_FOR_START)
         {
@@ -19,12 +29,20 @@ namespace zPoolMiner.Miners
 
         // eth-only: 1%
         // eth-dual-mine: 2%
+        /// <summary>
+        /// The DevFee
+        /// </summary>
+        /// <returns>The <see cref="double"/></returns>
         protected override double DevFee()
         {
             return IsDual() ? 2.0 : 1.0;
         }
 
         // the short form the miner uses for secondary algo in cmd line and log
+        /// <summary>
+        /// The SecondaryShortName
+        /// </summary>
+        /// <returns>The <see cref="string"/></returns>
         public string SecondaryShortName()
         {
             switch (SecondaryAlgorithmType)
@@ -44,16 +62,31 @@ namespace zPoolMiner.Miners
             return "";
         }
 
+        /// <summary>
+        /// The SecondaryLookForStart
+        /// </summary>
+        /// <returns>The <see cref="string"/></returns>
         protected override string SecondaryLookForStart()
         {
             return (SecondaryShortName() + " - Total Speed:").ToLower();
         }
 
+        /// <summary>
+        /// The GET_MAX_CooldownTimeInMilliseconds
+        /// </summary>
+        /// <returns>The <see cref="int"/></returns>
         protected override int GET_MAX_CooldownTimeInMilliseconds()
         {
             return 90 * 1000; // 1.5 minute max, whole waiting time 75seconds
         }
 
+        /// <summary>
+        /// The GetStartCommand
+        /// </summary>
+        /// <param name="url">The <see cref="string"/></param>
+        /// <param name="btcAdress">The <see cref="string"/></param>
+        /// <param name="worker">The <see cref="string"/></param>
+        /// <returns>The <see cref="string"/></returns>
         private string GetStartCommand(string url, string btcAdress, string worker)
         {
             string username = GetUsername(btcAdress, worker);
@@ -108,6 +141,12 @@ namespace zPoolMiner.Miners
                 + dualModeParams;
         }
 
+        /// <summary>
+        /// The Start
+        /// </summary>
+        /// <param name="url">The <see cref="string"/></param>
+        /// <param name="btcAdress">The <see cref="string"/></param>
+        /// <param name="worker">The <see cref="string"/></param>
         public override void Start(string url, string btcAdress, string worker)
         {
             string username = GetUsername(btcAdress, worker);
@@ -115,6 +154,11 @@ namespace zPoolMiner.Miners
             ProcessHandle = _Start();
         }
 
+        /// <summary>
+        /// The DeviceCommand
+        /// </summary>
+        /// <param name="amdCount">The <see cref="int"/></param>
+        /// <returns>The <see cref="string"/></returns>
         protected override string DeviceCommand(int amdCount = 1)
         {
             // If no AMD cards loaded, instruct CD to only regard NV cards for indexing
@@ -124,11 +168,16 @@ namespace zPoolMiner.Miners
         }
 
         // benchmark stuff
-
+        /// <summary>
+        /// The BenchmarkCreateCommandLine
+        /// </summary>
+        /// <param name="algorithm">The <see cref="Algorithm"/></param>
+        /// <param name="time">The <see cref="int"/></param>
+        /// <returns>The <see cref="string"/></returns>
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             // network stub
-            string url = Globals.GetLocationURL(algorithm.NiceHashID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
+            string url = Globals.GetLocationURL(algorithm.CryptoMiner937ID, Globals.MiningLocation[ConfigManager.GeneralConfig.ServiceLocation], this.ConectionType);
             // demo for benchmark
             string ret = GetStartCommand(url, Globals.GetBitcoinUser(), ConfigManager.GeneralConfig.WorkerName.Trim());
             // local benhcmark

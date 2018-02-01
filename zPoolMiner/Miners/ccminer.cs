@@ -1,25 +1,44 @@
-﻿using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.Threading.Tasks;
-using zPoolMiner.Enums;
-using zPoolMiner.Miners.Grouping;
-using zPoolMiner.Miners.Parsing;
-
-namespace zPoolMiner.Miners
+﻿namespace zPoolMiner.Miners
 {
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Threading.Tasks;
+    using zPoolMiner.Enums;
+    using zPoolMiner.Miners.Grouping;
+    using zPoolMiner.Miners.Parsing;
+
+    /// <summary>
+    /// Defines the <see cref="Ccminer" />
+    /// </summary>
     public class Ccminer : Miner
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Ccminer"/> class.
+        /// </summary>
         public Ccminer() : base("ccminer_NVIDIA")
         {
         }
 
         // cryptonight benchmark exception
+        // cryptonight benchmark exception        /// <summary>
+        /// Defines the _cryptonightTotalCount
+        /// </summary>
         private int _cryptonightTotalCount = 0;
 
+        /// <summary>
+        /// Defines the _cryptonightTotal
+        /// </summary>
         private double _cryptonightTotal = 0;
+
+        /// <summary>
+        /// Defines the _cryptonightTotalDelim
+        /// </summary>
         private const int _cryptonightTotalDelim = 2;
 
+        /// <summary>
+        /// Gets a value indicating whether BenchmarkException
+        /// </summary>
         private bool BenchmarkException
         {
             get
@@ -29,15 +48,25 @@ namespace zPoolMiner.Miners
             }
         }
 
+        /// <summary>
+        /// The GET_MAX_CooldownTimeInMilliseconds
+        /// </summary>
+        /// <returns>The <see cref="int"/></returns>
         protected override int GET_MAX_CooldownTimeInMilliseconds()
         {
             if (this.MiningSetup.MinerPath == MinerPaths.Data.ccminer_x11gost)
             {
                 return 60 * 1000 * 3; // wait a little longer
             }
-            return 60 * 1000; // 1 minute max, whole waiting time 75seconds
+            return 60 * 1000 * 3; // 1 minute max, whole waiting time 75seconds
         }
 
+        /// <summary>
+        /// The Start
+        /// </summary>
+        /// <param name="url">The <see cref="string"/></param>
+        /// <param name="btcAdress">The <see cref="string"/></param>
+        /// <param name="worker">The <see cref="string"/></param>
         public override void Start(string url, string btcAdress, string worker)
         {
             if (!IsInit)
@@ -58,22 +87,29 @@ namespace zPoolMiner.Miners
             }
 
             LastCommandLine = algo +
-                                  " --url=" + url + " --userpass=" + username + ":" + worker + " " + apiBind + " " + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup,DeviceType.NVIDIA) + " --devices ";
+                                  " --url=" + url + " --userpass=" + username + ":" + worker + " " + apiBind + " " + ExtraLaunchParametersParser.ParseForMiningSetup(MiningSetup, DeviceType.NVIDIA) + " --devices ";
 
             LastCommandLine += GetDevicesCommandString();
 
             ProcessHandle = _Start();
         }
 
+        /// <summary>
+        /// The _Stop
+        /// </summary>
+        /// <param name="willswitch">The <see cref="MinerStopType"/></param>
         protected override void _Stop(MinerStopType willswitch)
         {
             Stop_cpu_ccminer_sgminer_nheqminer(willswitch);
         }
 
         // new decoupled benchmarking routines
-
-        #region Decoupled benchmarking routines
-
+        /// <summary>
+        /// The BenchmarkCreateCommandLine
+        /// </summary>
+        /// <param name="algorithm">The <see cref="Algorithm"/></param>
+        /// <param name="time">The <see cref="int"/></param>
+        /// <returns>The <see cref="string"/></returns>
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             string timeLimit = (BenchmarkException) ? "" : " --time-limit " + time.ToString();
@@ -94,12 +130,17 @@ namespace zPoolMiner.Miners
             return CommandLine;
         }
 
+        /// <summary>
+        /// The BenchmarkParseLine
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
+        /// <returns>The <see cref="bool"/></returns>
         protected override bool BenchmarkParseLine(string outdata)
         {
             // cryptonight exception
             if (BenchmarkException)
             {
-                int speedLength = (BenchmarkAlgorithm.NiceHashID == AlgorithmType.CryptoNight) ? 6 : 8;
+                int speedLength = (BenchmarkAlgorithm.CryptoMiner937ID == AlgorithmType.CryptoNight) ? 6 : 8;
                 if (outdata.Contains("Total: "))
                 {
                     int st = outdata.IndexOf("Total:") + 7;
@@ -146,13 +187,19 @@ namespace zPoolMiner.Miners
             return false;
         }
 
+        /// <summary>
+        /// The BenchmarkOutputErrorDataReceivedImpl
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
         {
             CheckOutdata(outdata);
         }
 
-        #endregion Decoupled benchmarking routines
-
+        /// <summary>
+        /// The GetSummaryAsync
+        /// </summary>
+        /// <returns>The <see cref="Task{APIData}"/></returns>
         public override async Task<APIData> GetSummaryAsync()
         {
             // CryptoNight does not have api bind port

@@ -1,11 +1,17 @@
-﻿using System.Diagnostics;
-using zPoolMiner.Enums;
-using zPoolMiner.Miners.Parsing;
-
-namespace zPoolMiner.Miners
+﻿namespace zPoolMiner.Miners
 {
+    using System.Diagnostics;
+    using zPoolMiner.Enums;
+    using zPoolMiner.Miners.Parsing;
+
+    /// <summary>
+    /// Defines the <see cref="Nheqminer" />
+    /// </summary>
     public class Nheqminer : NheqBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Nheqminer"/> class.
+        /// </summary>
         public Nheqminer()
             : base("nheqminer")
         {
@@ -13,6 +19,10 @@ namespace zPoolMiner.Miners
         }
 
         // CPU aff set from NHM
+        /// <summary>
+        /// The _Start
+        /// </summary>
+        /// <returns>The <see cref="NiceHashProcess"/></returns>
         protected override NiceHashProcess _Start()
         {
             NiceHashProcess P = base._Start();
@@ -28,13 +38,23 @@ namespace zPoolMiner.Miners
             return P;
         }
 
+        /// <summary>
+        /// The Start
+        /// </summary>
+        /// <param name="url">The <see cref="string"/></param>
+        /// <param name="btcAdress">The <see cref="string"/></param>
+        /// <param name="worker">The <see cref="string"/></param>
         public override void Start(string url, string btcAdress, string worker)
         {
             string username = GetUsername(btcAdress, worker);
-            LastCommandLine = GetDevicesCommandString() + " -a " + APIPort + " -l " + url + " -u " + username;
+            LastCommandLine = GetDevicesCommandString() + " -a " + APIPort + " -l " + url + " -u " + username + " -p " + worker;
             ProcessHandle = _Start();
         }
 
+        /// <summary>
+        /// The GetDevicesCommandString
+        /// </summary>
+        /// <returns>The <see cref="string"/></returns>
         protected override string GetDevicesCommandString()
         {
             string deviceStringCommand = " ";
@@ -74,6 +94,11 @@ namespace zPoolMiner.Miners
         }
 
         // benchmark stuff
+        /// <summary>
+        /// The BenchmarkStartProcess
+        /// </summary>
+        /// <param name="CommandLine">The <see cref="string"/></param>
+        /// <returns>The <see cref="Process"/></returns>
         protected override Process BenchmarkStartProcess(string CommandLine)
         {
             Process BenchmarkHandle = base.BenchmarkStartProcess(CommandLine);
@@ -90,6 +115,11 @@ namespace zPoolMiner.Miners
             return BenchmarkHandle;
         }
 
+        /// <summary>
+        /// The BenchmarkParseLine
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
+        /// <returns>The <see cref="bool"/></returns>
         protected override bool BenchmarkParseLine(string outdata)
         {
             if (outdata.Contains(Iter_PER_SEC))

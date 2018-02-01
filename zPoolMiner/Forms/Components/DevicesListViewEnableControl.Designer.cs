@@ -34,10 +34,12 @@
             // 
             // listViewDevices
             // 
+            this.listViewDevices.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.listViewDevices.CheckBoxes = true;
             this.listViewDevices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader0});
             this.listViewDevices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewDevices.ForeColor = System.Drawing.Color.White;
             this.listViewDevices.FullRowSelect = true;
             this.listViewDevices.GridLines = true;
             this.listViewDevices.Location = new System.Drawing.Point(0, 0);

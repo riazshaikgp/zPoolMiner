@@ -35,6 +35,7 @@
             // 
             // listViewAlgorithms
             // 
+            this.listViewAlgorithms.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.listViewAlgorithms.CheckBoxes = true;
             this.listViewAlgorithms.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader0,
@@ -43,6 +44,7 @@
             this.columnHeader3,
             this.columnHeader4});
             this.listViewAlgorithms.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewAlgorithms.ForeColor = System.Drawing.Color.White;
             this.listViewAlgorithms.FullRowSelect = true;
             this.listViewAlgorithms.GridLines = true;
             this.listViewAlgorithms.Location = new System.Drawing.Point(0, 0);

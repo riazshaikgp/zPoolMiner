@@ -114,12 +114,12 @@
         /// <summary>
         /// Gets or sets the AlgorithmRates
         /// </summary>
-        public static Dictionary<AlgorithmType, NiceHashSMA> AlgorithmRates { get; private set; }
+        public static Dictionary<AlgorithmType, CryptoMiner937API> AlgorithmRates { get; private set; }
 
         /// <summary>
-        /// Defines the niceHashData
+        /// Defines the CryptoMiner937Data
         /// </summary>
-        private static NiceHashData niceHashData;
+        private static CryptoMiner937Data CryptoMiner937Data;
 
         /// <summary>
         /// Gets or sets the Balance
@@ -236,7 +236,7 @@
             {
                 try
                 {
-                    // We get the algo payment info here - http://www.zpool.ca/api/status
+                    // We get the algo payment info here - http://www.zpool.ca/api/status - But we use Crypto's API below
                     var WR = (HttpWebRequest)WebRequest.Create("http://crypominer937.tk/zpool-jsondbg.php");
                     var Response = WR.GetResponse();
                     var SS = Response.GetResponseStream();
@@ -266,10 +266,10 @@
             {
                 try
                 {
-                    if (AlgorithmRates == null || niceHashData == null)
+                    if (AlgorithmRates == null || CryptoMiner937Data == null)
                     {
-                        niceHashData = new NiceHashData();
-                        AlgorithmRates = niceHashData.NormalizedSMA();
+                        CryptoMiner937Data = new CryptoMiner937Data();
+                        AlgorithmRates = CryptoMiner937Data.NormalizedSMA();
                     }
                     //send login
                     var version = "NHML/" + Application.ProductVersion;
@@ -467,9 +467,9 @@
                 foreach (var algo in data)
                 {
                     var algoKey = (AlgorithmType)algo[0].Value<int>();
-                    niceHashData.AppendPayingForAlgo(algoKey, algo[1].Value<double>());
+                    CryptoMiner937Data.AppendPayingForAlgo(algoKey, algo[1].Value<double>());
                 }
-                AlgorithmRates = niceHashData.NormalizedSMA();
+                AlgorithmRates = CryptoMiner937Data.NormalizedSMA();
                 OnSMAUpdate.Emit(null, EventArgs.Empty);
             }
             catch (Exception e)
@@ -486,12 +486,12 @@
         {
             try
             {
-                if (niceHashData == null) niceHashData = new NiceHashData(data);
+                if (CryptoMiner937Data == null) CryptoMiner937Data = new CryptoMiner937Data(data);
                 foreach (var algo in data)
                 {
-                    niceHashData.AppendPayingForAlgo((AlgorithmType)algo.NiceHashAlgoId(), (double)algo.MidPoint24HrEstimate);
+                    CryptoMiner937Data.AppendPayingForAlgo((AlgorithmType)algo.NiceHashAlgoId(), (double)algo.MidPoint24HrEstimate);
                 }
-                AlgorithmRates = niceHashData.NormalizedSMA();
+                AlgorithmRates = CryptoMiner937Data.NormalizedSMA();
                 OnSMAUpdate.Emit(null, EventArgs.Empty);
             }
             catch (Exception e)
@@ -615,7 +615,7 @@
             }
             catch (Exception ex)
             {
-                Helpers.ConsolePrint("NICEHASH", ex.Message);
+                Helpers.ConsolePrint("CryptoMiner937", ex.Message);
                 return null;
             }
 
@@ -816,7 +816,9 @@
                 case "qubit":
                     return 1;
 
-                case "equihash": return 1e6m;
+                case "equihash":
+                case "yescrypt":
+                    return 1e6m;
                 case "sha256":
                     return 1e-3m;
 

@@ -1,28 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-using zPoolMiner.Configs;
-using zPoolMiner.Devices;
-using zPoolMiner.Enums;
-using zPoolMiner.Miners.Grouping;
-
-namespace zPoolMiner.Miners
+﻿namespace zPoolMiner.Miners
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Threading.Tasks;
+    using zPoolMiner.Configs;
+    using zPoolMiner.Devices;
+    using zPoolMiner.Enums;
+    using zPoolMiner.Miners.Grouping;
+
     /// <summary>
     /// For now used only for daggerhashimoto
     /// </summary>
     public abstract class MinerEtherum : Miner
     {
         //ComputeDevice
+        //ComputeDevice        /// <summary>
+        /// Defines the DaggerHashimotoGenerateDevice
+        /// </summary>
         protected ComputeDevice DaggerHashimotoGenerateDevice;
 
+        /// <summary>
+        /// Defines the CurrentBlockString
+        /// </summary>
         readonly protected string CurrentBlockString;
+
+        /// <summary>
+        /// Defines the DagGenerationType
+        /// </summary>
         readonly private DagGenerationType DagGenerationType;
 
+        /// <summary>
+        /// Defines the IsPaused
+        /// </summary>
         protected bool IsPaused = false;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MinerEtherum"/> class.
+        /// </summary>
+        /// <param name="minerDeviceName">The <see cref="string"/></param>
+        /// <param name="blockString">The <see cref="string"/></param>
         public MinerEtherum(string minerDeviceName, string blockString)
             : base(minerDeviceName)
         {
@@ -30,15 +48,34 @@ namespace zPoolMiner.Miners
             DagGenerationType = ConfigManager.GeneralConfig.EthminerDagGenerationType;
         }
 
+        /// <summary>
+        /// The GET_MAX_CooldownTimeInMilliseconds
+        /// </summary>
+        /// <returns>The <see cref="int"/></returns>
         protected override int GET_MAX_CooldownTimeInMilliseconds()
         {
             return 90 * 1000; // 1.5 minute max, whole waiting time 75seconds
         }
 
+        /// <summary>
+        /// The GetStartCommandStringPart
+        /// </summary>
+        /// <param name="url">The <see cref="string"/></param>
+        /// <param name="username">The <see cref="string"/></param>
+        /// <returns>The <see cref="string"/></returns>
         protected abstract string GetStartCommandStringPart(string url, string username);
 
+        /// <summary>
+        /// The GetBenchmarkCommandStringPart
+        /// </summary>
+        /// <param name="algorithm">The <see cref="Algorithm"/></param>
+        /// <returns>The <see cref="string"/></returns>
         protected abstract string GetBenchmarkCommandStringPart(Algorithm algorithm);
 
+        /// <summary>
+        /// The GetDevicesCommandString
+        /// </summary>
+        /// <returns>The <see cref="string"/></returns>
         protected override string GetDevicesCommandString()
         {
             string deviceStringCommand = " ";
@@ -60,6 +97,11 @@ namespace zPoolMiner.Miners
             return deviceStringCommand;
         }
 
+        /// <summary>
+        /// The GetDagGenerationString
+        /// </summary>
+        /// <param name="type">The <see cref="DagGenerationType"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public static string GetDagGenerationString(DagGenerationType type)
         {
             switch (type)
@@ -79,6 +121,13 @@ namespace zPoolMiner.Miners
             return "singlekeep";
         }
 
+        /// <summary>
+        /// The Start
+        /// </summary>
+        /// <param name="url">The <see cref="string"/></param>
+        /// <param name="btcAdress">The <see cref="string"/></param>
+        /// <param name="worker">The <see cref="string"/></param>
+        /// <param name="usedMiners">The <see cref="List{MinerEtherum}"/></param>
         public void Start(string url, string btcAdress, string worker, List<MinerEtherum> usedMiners)
         {
             if (!IsInit)
@@ -111,6 +160,12 @@ namespace zPoolMiner.Miners
             }
         }
 
+        /// <summary>
+        /// The BenchmarkCreateCommandLine
+        /// </summary>
+        /// <param name="algorithm">The <see cref="Algorithm"/></param>
+        /// <param name="time">The <see cref="int"/></param>
+        /// <returns>The <see cref="string"/></returns>
         protected override string BenchmarkCreateCommandLine(Algorithm algorithm, int time)
         {
             string CommandLine = GetBenchmarkCommandStringPart(algorithm) + GetDevicesCommandString();
@@ -120,6 +175,10 @@ namespace zPoolMiner.Miners
             return CommandLine;
         }
 
+        /// <summary>
+        /// The InitMiningSetup
+        /// </summary>
+        /// <param name="miningSetup">The <see cref="MiningSetup"/></param>
         public override void InitMiningSetup(MiningSetup miningSetup)
         {
             base.InitMiningSetup(miningSetup);
@@ -136,6 +195,10 @@ namespace zPoolMiner.Miners
             }
         }
 
+        /// <summary>
+        /// The GetSummaryAsync
+        /// </summary>
+        /// <returns>The <see cref="Task{APIData}"/></returns>
         public override Task<APIData> GetSummaryAsync()
         {
             APIData ad = new APIData(MiningSetup.CurrentAlgorithmType);
@@ -164,12 +227,20 @@ namespace zPoolMiner.Miners
             return Task.FromResult<APIData>(null);
         }
 
+        /// <summary>
+        /// The _Start
+        /// </summary>
+        /// <returns>The <see cref="NiceHashProcess"/></returns>
         protected override NiceHashProcess _Start()
         {
             SetEthminerAPI(APIPort);
             return base._Start();
         }
 
+        /// <summary>
+        /// The _Stop
+        /// </summary>
+        /// <param name="willswitch">The <see cref="MinerStopType"/></param>
         protected override void _Stop(MinerStopType willswitch)
         {
             // prevent logging non runing miner
@@ -203,6 +274,11 @@ namespace zPoolMiner.Miners
         }
 
         // benchmark stuff
+        /// <summary>
+        /// The BenchmarkParseLine
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
+        /// <returns>The <see cref="bool"/></returns>
         protected override bool BenchmarkParseLine(string outdata)
         {
             if (outdata.Contains("min/mean/max:"))
@@ -219,17 +295,33 @@ namespace zPoolMiner.Miners
             return false;
         }
 
+        /// <summary>
+        /// The BenchmarkOutputErrorDataReceivedImpl
+        /// </summary>
+        /// <param name="outdata">The <see cref="string"/></param>
         protected override void BenchmarkOutputErrorDataReceivedImpl(string outdata)
         {
             CheckOutdata(outdata);
         }
 
-        #region ethminerAPI
-
+        /// <summary>
+        /// Defines the GetSpeedStatus
+        /// </summary>
         private enum GetSpeedStatus
         {
+            /// <summary>
+            /// Defines the NONE
+            /// </summary>
             NONE,
+
+            /// <summary>
+            /// Defines the GOT
+            /// </summary>
             GOT,
+
+            /// <summary>
+            /// Defines the EXCEPTION
+            /// </summary>
             EXCEPTION
         }
 
@@ -306,20 +398,25 @@ namespace zPoolMiner.Miners
             return GetSpeedStatus.NONE;
         }
 
-        #region PRIVATE
-
+        /// <summary>
+        /// Defines the m_port
+        /// </summary>
         private int m_port;
+
+        /// <summary>
+        /// Defines the m_client
+        /// </summary>
         private UdpClient m_client;
 
+        /// <summary>
+        /// The SendUDP
+        /// </summary>
+        /// <param name="code">The <see cref="int"/></param>
         private void SendUDP(int code)
         {
             byte[] data = new byte[1];
             data[0] = (byte)code;
             m_client.Send(data, data.Length);
         }
-
-        #endregion PRIVATE
-
-        #endregion ethminerAPI
     }
 }

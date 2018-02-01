@@ -1,42 +1,73 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
-using System.Windows.Forms;
-using zPoolMiner.Configs;
-using zPoolMiner.Enums;
-using zPoolMiner.Interfaces;
-using zPoolMiner.Miners;
-using zPoolMiner.Miners.Grouping;
-using Timer = System.Timers.Timer;
-
-namespace zPoolMiner
+﻿namespace zPoolMiner
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.IO;
+    using System.Net.Sockets;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Timers;
+    using System.Windows.Forms;
+    using zPoolMiner.Configs;
+    using zPoolMiner.Enums;
+    using zPoolMiner.Interfaces;
+    using zPoolMiner.Miners;
+    using zPoolMiner.Miners.Grouping;
+    using Timer = System.Timers.Timer;
+
+    /// <summary>
+    /// Defines the <see cref="APIData" />
+    /// </summary>
     public class APIData
     {
+        /// <summary>
+        /// Defines the AlgorithmID
+        /// </summary>
         public AlgorithmType AlgorithmID;
+
+        /// <summary>
+        /// Defines the SecondaryAlgorithmID
+        /// </summary>
         public AlgorithmType SecondaryAlgorithmID;
+
+        /// <summary>
+        /// Defines the AlgorithmName
+        /// </summary>
         public string AlgorithmName;
+
+        /// <summary>
+        /// Defines the Speed
+        /// </summary>
         public double Speed;
+
+        /// <summary>
+        /// Defines the SecondarySpeed
+        /// </summary>
         public double SecondarySpeed;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="APIData"/> class.
+        /// </summary>
+        /// <param name="algorithmID">The <see cref="AlgorithmType"/></param>
+        /// <param name="secondaryAlgorithmID">The <see cref="AlgorithmType"/></param>
         public APIData(AlgorithmType algorithmID, AlgorithmType secondaryAlgorithmID = AlgorithmType.NONE)
         {
             this.AlgorithmID = algorithmID;
             this.SecondaryAlgorithmID = secondaryAlgorithmID;
-            this.AlgorithmName = AlgorithmNiceHashNames.GetName(DualAlgorithmID());
+            this.AlgorithmName = AlgorithmCryptoMiner937Names.GetName(DualAlgorithmID());
             this.Speed = 0.0;
             this.SecondarySpeed = 0.0;
         }
 
+        /// <summary>
+        /// The DualAlgorithmID
+        /// </summary>
+        /// <returns>The <see cref="AlgorithmType"/></returns>
         public AlgorithmType DualAlgorithmID()
         {
             if (AlgorithmID == AlgorithmType.DaggerHashimoto)
@@ -61,11 +92,22 @@ namespace zPoolMiner
     }
 
     //
+    /// <summary>
+    /// Defines the <see cref="MinerPID_Data" />
+    /// </summary>
     public class MinerPID_Data
     {
+        /// <summary>
+        /// Defines the minerBinPath
+        /// </summary>
         public string minerBinPath = null;
+
+        /// <summary>
+        /// Defines the PID
+        /// </summary>
         public int PID = -1;
     }
+
 
     public abstract class Miner
     {
@@ -210,7 +252,7 @@ namespace zPoolMiner
             if (IsInit)
             {
                 var minerBase = MiningSetup.MiningPairs[0].Algorithm.MinerBaseType;
-                var algoType = MiningSetup.MiningPairs[0].Algorithm.NiceHashID;
+                var algoType = MiningSetup.MiningPairs[0].Algorithm.CryptoMiner937ID;
                 var path = MiningSetup.MinerPath;
                 var reservedPorts = MinersSettingsManager.GetPortsListFor(minerBase, path, algoType);
                 APIPort = -1; // not set
@@ -377,15 +419,14 @@ namespace zPoolMiner
             return deviceStringCommand;
         }
 
-        #region BENCHMARK DE-COUPLED Decoupled benchmarking routines
 
         public int BenchmarkTimeoutInSeconds(int timeInSeconds)
         {
-            if (BenchmarkAlgorithm.NiceHashID == AlgorithmType.DaggerHashimoto)
+            if (BenchmarkAlgorithm.CryptoMiner937ID == AlgorithmType.DaggerHashimoto)
             {
                 return 5 * 60 + 120; // 5 minutes plus two minutes
             }
-            if (BenchmarkAlgorithm.NiceHashID == AlgorithmType.CryptoNight)
+            if (BenchmarkAlgorithm.CryptoMiner937ID == AlgorithmType.CryptoNight)
             {
                 return 5 * 60 + 120; // 5 minutes plus two minutes
             }
@@ -588,7 +629,7 @@ namespace zPoolMiner
         }
 
         //add hsrminer palgin
-        protected double BenchmarkParseLine_cpu_hsrneoscrypt_extra(string outdata)
+        protected double BenchmarkParseLine_cpu_Palgin_Neoscrypt_extra(string outdata)
         {
             // parse line
             if (outdata.Contains("Benchmark: ") && outdata.Contains("/s"))
@@ -731,7 +772,7 @@ namespace zPoolMiner
                 }
             }
             BenchmarkProcessStatus = status;
-            Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + Helpers.FormatDualSpeedOutput(BenchmarkAlgorithm.NiceHashID, BenchmarkAlgorithm.BenchmarkSpeed, BenchmarkAlgorithm.SecondaryBenchmarkSpeed));
+            Helpers.ConsolePrint("BENCHMARK", "Final Speed: " + Helpers.FormatDualSpeedOutput(BenchmarkAlgorithm.CryptoMiner937ID, BenchmarkAlgorithm.BenchmarkSpeed, BenchmarkAlgorithm.SecondaryBenchmarkSpeed));
             Helpers.ConsolePrint("BENCHMARK", "Benchmark ends");
             if (BenchmarkComunicator != null && !OnBenchmarkCompleteCalled)
             {
@@ -933,7 +974,6 @@ namespace zPoolMiner
             }
         }
 
-        #endregion BENCHMARK DE-COUPLED Decoupled benchmarking routines
 
         virtual protected NiceHashProcess _Start()
         {
@@ -1001,10 +1041,10 @@ namespace zPoolMiner
                     {
                         StartCoolDownTimerChecker();
                     }
-                   /* if (!ProcessTag().Contains("mkxminer_lyra2rev2")) //temporary disable mkxminer checker
-                    {
-                        StartCoolDownTimerChecker();
-                    }*/
+                    /* if (!ProcessTag().Contains("mkxminer_lyra2rev2")) //temporary disable mkxminer checker
+                     {
+                         StartCoolDownTimerChecker();
+                     }*/
 
                     return P;
                 }
@@ -1203,7 +1243,7 @@ namespace zPoolMiner
         }
 
         //add hsrminer palgin
-        protected async Task<APIData> GetSummaryCPU_hsrneoscryptAsync()
+        protected async Task<APIData> GetSummaryCPU_Palgin_NeoscryptAsync()
         {
             string resp;
             // TODO aname
@@ -1343,7 +1383,6 @@ namespace zPoolMiner
             return ad;
         }
 
-        #region Cooldown/retry logic
 
         /// <summary>
         /// decrement time for half current half time, if less then min ammend
@@ -1411,6 +1450,5 @@ namespace zPoolMiner
             }
         }
 
-        #endregion Cooldown/retry logic
     }
 }

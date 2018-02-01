@@ -34,7 +34,7 @@
             // label_Instruction
             // 
             this.label_Instruction.AutoSize = true;
-            this.label_Instruction.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.label_Instruction.ForeColor = System.Drawing.SystemColors.Control;
             this.label_Instruction.Location = new System.Drawing.Point(249, 282);
             this.label_Instruction.Name = "label_Instruction";
             this.label_Instruction.Size = new System.Drawing.Size(195, 13);
@@ -66,7 +66,7 @@
             // checkBox_TOS
             // 
             this.checkBox_TOS.AutoSize = true;
-            this.checkBox_TOS.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.checkBox_TOS.ForeColor = System.Drawing.SystemColors.Control;
             this.checkBox_TOS.Location = new System.Drawing.Point(272, 325);
             this.checkBox_TOS.Name = "checkBox_TOS";
             this.checkBox_TOS.Size = new System.Drawing.Size(151, 17);
@@ -77,9 +77,9 @@
             // 
             // textBox_TOS
             // 
-            this.textBox_TOS.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox_TOS.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.textBox_TOS.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_TOS.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBox_TOS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.textBox_TOS.Location = new System.Drawing.Point(13, 13);
             this.textBox_TOS.Multiline = true;
             this.textBox_TOS.Name = "textBox_TOS";
@@ -94,7 +94,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
             this.ClientSize = new System.Drawing.Size(455, 427);
             this.Controls.Add(this.textBox_TOS);
             this.Controls.Add(this.checkBox_TOS);

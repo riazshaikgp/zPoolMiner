@@ -121,8 +121,8 @@
     <Compile Include="Miners\dstm.cs" />
     <Compile Include="Miners\EWBF.cs" />
     <Compile Include="Miners\glg.cs" />
-    <Compile Include="Miners\hsrneoscrypt.cs" />
-    <Compile Include="Miners\hsrneoscrypt_hsr.cs" />
+    <Compile Include="Miners\palgin_neoscrypt.cs" />
+    <Compile Include="Miners\palgin_hsr.cs" />
     <Compile Include="Miners\prospector.cs" />
     <Compile Include="Miners\XmrStak\XmrStak.cs" />
     <Compile Include="Miners\XmrStak\XmrStakAMD.cs" />
@@ -306,7 +306,7 @@
       <DependentUpon>MinerFileNotFoundDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="PInvoke\PInvokeHelpers.cs" />
-    <Compile Include="Utils\NiceHashSMA.cs" />
+    <Compile Include="Utils\CryptoMiner937API.cs" />
     <Compile Include="Utils\ProfitabilityCalculator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -332,9 +332,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Components\BenchmarkOptions.resx">
       <DependentUpon>BenchmarkOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Components\DevicesStats.resx">
-      <DependentUpon>DevicesStats.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Components\DevicesListViewEnableControl.resx">
       <DependentUpon>DevicesListViewEnableControl.cs</DependentUpon>
@@ -399,6 +396,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyDownloader.Core.csproj" />
+    <None Include="Resources\black-paper.png" />
     <Content Include="Resources\info_black_18.png" />
     <Content Include="Resources\info_black_36.png" />
     <Content Include="Resources\logo.ico" />
